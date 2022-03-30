@@ -1,0 +1,51 @@
+###home page 
+GET http://localhost:3000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDYzODk2MzUsImV4cCI6MTY0NjM4OTY1MCwiYXVkIjoiNjIyMTE0YWRmOTUzZDQ5MTQ3MTE4ZjU4IiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.LngfbrXVTBHQKIgkQnTGKSrhEUfQUNqsvLhdrO3V8J0
+
+###Userprofile request
+GET http://localhost:3000/auth/userprofile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDc2NzY4NzAsImV4cCI6MTY0NzY4MDQ3MCwiYXVkIjoiNjIzMmQzOWM1YjUyODE5NmQxYmM5Y2Q4IiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.BaxokYbdNBhAq4Q6bTO48aF0BylLMJom-g_NC1GOMG8
+
+###Userprofile request
+GET http://localhost:3000/auth/newuser1@gmail.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDc2NzY4NzAsImV4cCI6MTY0NzY4MDQ3MCwiYXVkIjoiNjIzMmQzOWM1YjUyODE5NmQxYmM5Y2Q4IiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.BaxokYbdNBhAq4Q6bTO48aF0BylLMJom-g_NC1GOMG8
+
+###Login Route
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "newuser3@gmail.com",
+    "password": "1234"
+}
+
+###get product
+GET http://localhost:3000/product
+Authorization: Bearer 
+
+
+
+###delete user
+DELETE http://localhost:3000/auth/6221f66db98685bb87b9c727
+
+###Register Route
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "newuser2@gmail.com",
+    "password": "123",
+    "username":"Sahar",
+    "phoneNumber":"49059373",
+    "address":"North Nazimabad",
+    "role":"admin"
+}
+
+###Refresh token Route
+POST http://localhost:3000/auth/refresh-token
+Content-Type: application/json
+
+{
+    "refreshToken": ""
+}
+
