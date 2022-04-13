@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser'); 
 const createError = require('http-errors')
 require ('dotenv').config()
+const cors = require("cors");
 const { verifyAccessToken } = require('./helpers/jwthelper')
 const AuthRoute = require('./Routes/Auth.route')
 const categoryRoute = require('./Routes/Category')
@@ -27,6 +28,7 @@ mongoose.connection.on('connected',connected=>{
 
 //initalize app
 const app = express()
+app.use(cors());
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json()); //data recieved should be in JSON
