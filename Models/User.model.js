@@ -15,7 +15,7 @@ const UserSchema = new Schema({
         required: true
     }, 
     username:String,
-    phoneNumber:Number,
+    phoneNumber:String,
     address:String,
     role:String,
     status:String,
