@@ -13,6 +13,7 @@ const restaurantRoutes = require('./routes/restaurant');
 const orderRoutes = require("./routes/order");
 const statusRoutes = require("./routes/status");
 
+
 // connect db to node.js using link from database access and writing password 
 mongoose.connect('mongodb+srv://SaharMirza:Strawberry2@eatery.mwwmq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
 
