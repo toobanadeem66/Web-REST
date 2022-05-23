@@ -29,45 +29,45 @@ const columns = [
 
 
 const Datatable = () => {
-    var [prior, setPrior] = useState([
-      {  _id: "",
-      Item_Name: "",
-      Cat_id: "",
-      Item_price: Number,
-      Item_picture: "",
-      Item_desc: "",
-      Cat_Name: "" }
-    ]);
+    // var [prior, setPrior] = useState([
+    //   {  _id: "",
+    //   Item_Name: "",
+    //   Cat_id: "",
+    //   Item_price: Number,
+    //   Item_picture: "",
+    //   Item_desc: "",
+    //   Cat_Name: "" }
+    // ]);
 
   
-    var count = 0;
-    var catName = ""
-    var c = "";
+
+    var [catName, setCatName] = useState("");
+    var [data, setData] = useState([]);
 
    async function view() {
        const token = JSON.parse(localStorage.getItem('token'));
       console.log(token)
 
-
+        
 
         await axios.get("http://localhost:3000/Food_item", { headers: {"Authorization" : `Bearer ${token}`} })
         .then(res => {
                 
+          var prior = [];
 
-          var prior = []
                 for(var item in res.data.Food_items){
                     // catName
                     
                     // get the category name
-                    console.log(res.data.Food_items[item].Cat_id)
-                   catName =  getCatName(res.data.Food_items[item].Cat_id).then( (result) => {
-                        console.log(result)
-                       c = result
-                        return result
+                   getCatName(res.data.Food_items[item].Cat_id).then(result =>{
+                      
+                      return setCatName(result);
+                      
                     })
 
+
                     
-                      console.log(catName)
+                    console.log(catName)
                     // json mapping
                    var  json = {
                       _id: res.data.Food_items[item]._id,
@@ -81,33 +81,9 @@ const Datatable = () => {
                   prior.push(json)
               }
 
-          //  prior = res.data.Food_items.map(item => (
-          //   { 
-          //     _id: item._id,
-          //     Item_Name: item.Item_Name,
-          //     Cat_id: item.Cat_id,
-          //     Item_price: item.Item_price,
-          //     Item_picture: item.Item_picture,
-          //     Item_desc: item.Item_desc,
-              
-              
-          //   }))
-
-
-          //   console.log(this.getCatName(prior[0].Cat_id))
-          
-        //   for(var i = 0; i < prior.length; i++){
-
-        //     getCatName(prior[i].Cat_id).then(function(result) {
-        //       prior[i].Cat_Name = result;
-
-        //    })
-
-                  
-        //  }
         
               console.log(prior)
-            setPrior(prior);
+            setData(prior);
 
 
 
@@ -125,30 +101,27 @@ const Datatable = () => {
 
 
 
-
 }
 
 async function getCatName (id){
- console.log(id)
-    const token = JSON.parse(localStorage.getItem('token'));
-    var catName = "";
-  await axios.get(`http://localhost:3000/Category/${id}`, { headers: {"Authorization" : `Bearer ${token}`} })
-    .then(res => {
+  console.log(id)
+     const token = JSON.parse(localStorage.getItem('token'));
+     var catName = "";
+   await axios.get(`http://localhost:3000/Category/${id}`, { headers: {"Authorization" : `Bearer ${token}`} })
+     .then(res => {
+ 
+       console.log( res.data.categoryData.Cat_Name)
+         catName = res.data.categoryData.Cat_Name;
+ 
+        
+     })
+     .catch(err => {
+         console.log(err)
+     })
+     return catName;
+ }
 
-      console.log( res.data.categoryData.Cat_Name)
-        catName = res.data.categoryData.Cat_Name;
 
-       
-    })
-    .catch(err => {
-        console.log(err)
-    })
-    return catName;
-}
-
-function getRowId(){
-   return count = count + 1;
-}
 
 
 
@@ -159,7 +132,7 @@ function getRowId(){
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         
-        rows={prior}
+        rows={data}
         columns={columns}
         getRowId = {(row) => row._id}
         pageSize={5}
