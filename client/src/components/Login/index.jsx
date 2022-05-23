@@ -26,8 +26,10 @@ const Login = () => {
                 console.log(data.accessToken);
                 
                 localStorage.setItem("token", data);
+				
+				
                 
-                window.location = "/";
+                window.location = "/dashboard";
               });
 
             // console.log(data)

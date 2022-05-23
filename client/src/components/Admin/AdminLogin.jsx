@@ -25,9 +25,10 @@ const AdminLogin = () => {
                 console.log(response.status);
                 console.log(data.accessToken);
                 
-                localStorage.setItem("token", data);
+                localStorage.setItem("token", JSON.stringify(data.accessToken));
                 
-                window.location = "/";
+                window.location = "/dashboard";
+				
               });
 
             // console.log(data)
