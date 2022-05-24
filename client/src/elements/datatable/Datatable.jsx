@@ -25,7 +25,7 @@ const Datatable = () => {
 
     await axios.get("http://localhost:3000/Food_item", { headers: { "Authorization": `Bearer ${token}` } })
       .then(res => {
-
+        
         var prior = [];
 
         for (var item in res.data.Food_items) {

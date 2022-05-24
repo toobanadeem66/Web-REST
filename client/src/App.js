@@ -16,42 +16,54 @@ function App() {
 
 	return (
 		<Routes>
-			<Route path="/dashboard" >
-		   { user && <Route index element={< AdminHome />} /> } 
-		   </Route>
-
-			<Route path="/AdminLogin"  exact element={< AdminLogin />} />
-			<Route path="/ManageLocation"  exact element={< ManageLocation />} />	
-			
+			<Route path="/AdminLogin" exact element={< AdminLogin />} />
 			<Route path="/login" exact element={<AdminLogin />} />
 
+			<Route path="/dashboard" >
+				{user && <Route index element={< AdminHome />} />}
+				{!user && <Route index element = {"404 NOT FOUND"} /> }
+			</Route>
+
+			<Route path="/ManageProduct" >
+				{user && <Route index element={<ManageProduct />} />}
+				{!user && <Route index element = {"404 NOT FOUND"} /> }
+			</Route>
+
+			<Route path="/ManageLocation">
+				{user && <Route index element={< ManageLocation />} />}
+				{!user && <Route index element = {"404 NOT FOUND"} /> }
+			</Route>
+
 			<Route path="/users">
-              <Route index element={<List />} />
-			  </Route>
+				{user && <Route index element={<List />} />}
+				{!user && <Route index element = {"404 NOT FOUND"} /> }
+			</Route>
+			
+			<Route path="/ManageOrder">
+				{user && <Route index element={<ViewOrders />} />}
+				{!user && <Route index element = {"404 NOT FOUND"} /> }
+			</Route>
 
-			<Route path="/ManageOrder" exact element={<ViewOrders />} />
-			<Route path ="/ManageProduct" exact element={<ManageProduct />} />
-			<Route path="/ManageCategory" exact element={<ManageCategory />} />		  
-			<Route path ="/RestaurantProfile" exact element={<RestaurantProfile />} />
+			<Route path="/ManageCategory">
+				{user && <Route index element={<ManageCategory />} />}
+				{!user && <Route index element = {"404 NOT FOUND"} /> }
+			</Route>
 
+			<Route path="/RestaurantProfile">
+				{user && <Route index element={<RestaurantProfile />} />}
+				{!user && <Route index element = {"404 NOT FOUND"} /> }
+			</Route>
 
-
-
-
-
-
-
-
-
+			<Route path ="*" exact element={"404 NOT FOUND"} /> 
 
 			{/* <Route path="/login" exact element={<Login />} /> */}
 			{/* {user && <Route path="/homepage" exact element={<Main />} />} */}
 			{/* <Route path="/signup" exact element={<Signup />} /> */}
-			
+
 			{/* <Route path="/" element={<Navigate replace to="/login" />} /> */}
 
 		</Routes>
-		
+
 	);
 }
 
