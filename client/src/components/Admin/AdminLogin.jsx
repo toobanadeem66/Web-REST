@@ -25,10 +25,17 @@ const AdminLogin = () => {
                 console.log(response.status);
                 console.log(data.accessToken);
                 
+
+				if (data.role==='admin') {
+
                 localStorage.setItem("token", JSON.stringify(data.accessToken));
-                
+                localStorage.setItem('refreshToken', data.refreshToken)
+				alert('Login successful')
                 window.location = "/dashboard";
-				
+				}
+				else {
+					alert('Please check your username and password')
+				}
               });
 
             // console.log(data)
