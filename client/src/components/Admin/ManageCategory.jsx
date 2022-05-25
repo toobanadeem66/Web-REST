@@ -5,7 +5,7 @@ import "./ManageCategory.scss";
 
 const ManageCategory = () => {
     return (
-      <div className = "category">
+      <div className = "list">
           <Sidebar/>
           <div className = "listContainer">
               <Navbar/>
