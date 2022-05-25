@@ -8,9 +8,22 @@ import StoreIcon from "@mui/icons-material/Store";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import CategoryIcon from '@mui/icons-material/Category';
 import EditLocationAltOutlinedIcon from '@mui/icons-material/EditLocationAltOutlined';
+import {Navigate} from 'react-router-dom';
+import React, {useState } from 'react'
 
+const Sidebar = () => {
 
-const sidebar = () => {
+  const [navigate, setNavigate] = useState(false);
+
+  const logout = async () => {
+    window.localStorage.clear();
+    setNavigate(true);
+}
+
+if (navigate) {
+  return <Navigate to="/login"/>;
+}
+
   return (
     <div className="sidebar">
       <div className="top"> 
@@ -76,6 +89,7 @@ const sidebar = () => {
           <li>
             <ExitToAppIcon className="icon" />
             <span> Logout </span>
+            <button onClick={logout}>LOGOUT</button>
           </li>
 
         </ul>
@@ -94,4 +108,4 @@ const sidebar = () => {
   )
 }
 
-export default sidebar
+export default Sidebar
