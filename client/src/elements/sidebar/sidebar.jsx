@@ -80,18 +80,18 @@ if (navigate) {
           </Link>
 
           <p className="title"> USER </p>
-          <Link to = "/RestaurantProfile" style={{ textDecoration: "none" }}>
+          <Link to = "/RestaurantProfile"  style={{ textDecoration: "none" }}>
           <li>
             <AccountCircleOutlinedIcon className="icon"/>
             <span> Restaurant Profile </span>
           </li>
           </Link>
+          <Link to = "/login" onClick={logout} style={{ textDecoration: "none" }}>
           <li>
             <ExitToAppIcon className="icon" />
             <span> Logout </span>
-            <button onClick={logout}>LOGOUT</button>
           </li>
-
+              </Link>  
         </ul>
       </div>    
       <div className="bottom">

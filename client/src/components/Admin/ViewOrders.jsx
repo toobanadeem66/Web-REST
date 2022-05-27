@@ -5,9 +5,9 @@ import "./ViewOrders.scss";
 
 const ViewOrders = () => {
   return (
-    <div className = "orders">
+    <div className = "list">
         <Sidebar/>
-        <div className = "orders__container">
+        <div className = "listContainer">
             <Navbar/>
             <Datatable/>
             </div>

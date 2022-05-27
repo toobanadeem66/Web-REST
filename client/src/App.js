@@ -11,6 +11,7 @@ import ManageProduct from "./components/Admin/ManageProduct";
 import ManageCategory from "./components/Admin/ManageCategory";
 import RestaurantProfile from "./components/Admin/RestaurantProfile";
 
+
 function App() {
 	const user = localStorage.getItem("token");
 
@@ -20,7 +21,7 @@ function App() {
 			<Route path="/login" exact element={<AdminLogin />} />
 
 			<Route path="/dashboard" >
-				{user && <Route index element={< AdminHome />} />}
+				{ user && <Route index element={< AdminHome />} />}
 				{!user && <Route index element = {"404 NOT FOUND"} /> }
 			</Route>
 
