@@ -29,7 +29,7 @@ const AdminLogin = () => {
 				if (data.role==='admin') {
 
                 localStorage.setItem("token", JSON.stringify(data.accessToken));
-                localStorage.setItem('refreshToken', data.refreshToken)
+                localStorage.setItem('refreshToken', JSON.stringify(data.refreshToken))
 				alert('Login successful')
                 window.location = "/dashboard";
 				}

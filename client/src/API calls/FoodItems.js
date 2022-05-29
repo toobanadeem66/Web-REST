@@ -1,15 +1,10 @@
-import axios from 'axios';
+import Api from './Api';
 
+export async function getFoodItems() {
+  var response = Api.get("http://localhost:3000/Food_item")
+    .catch(err => {
+      console.log("err");
+    });
 
-var token = JSON.parse(localStorage.getItem("token"))
-const header = { headers: { Authorization: `Bearer ${token}` } }; 
-
-export  async function getFoodItems() {
-  var response = await axios.get("http://localhost:3000/Food_item", header)
-      .catch(err => {
-        console.log(err);
-      });
-
-      return response
-  }
-
+  return response
+}
