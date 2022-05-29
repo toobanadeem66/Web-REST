@@ -1,11 +1,11 @@
 import axios from 'axios';
+import Api from './Api';
 
-
-var token = JSON.parse(localStorage.getItem("token"))
-const header = { headers: { Authorization: `Bearer ${token}` } }; 
+//var token = JSON.parse(localStorage.getItem("token"))
+//const header = { headers: { Authorization: `Bearer ${token}` } }; 
 
 export  async function getUsers() {
-  var response = await axios.get("http://localhost:3000/auth", header)
+  var response = await Api.get("http://localhost:3000/auth")
       .catch(err => {
         console.log(err);
       });
@@ -14,7 +14,7 @@ export  async function getUsers() {
   }
 
   export  async function getUsersById(id) {
-    var response = await axios.get(`http://localhost:3000/auth/${id}`, header)
+    var response = await Api.get(`http://localhost:3000/auth/${id}`)
         .catch(err => {
           console.log(err);
         });
