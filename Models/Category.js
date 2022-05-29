@@ -16,7 +16,11 @@ const CategorySchema = new Schema({
     R_ID: {
         type: Number,
         required: true
+    },
+    Cat_ID:{
+        type: Number,
     }
+
 })
 
 module.exports = mongoose.model('Category',CategorySchema);

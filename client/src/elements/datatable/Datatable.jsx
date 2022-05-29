@@ -6,20 +6,53 @@ import { display } from "@mui/system";
 import { getFoodItems } from "../../API calls/FoodItems";
 import { getCategoriesById } from "../../API calls/Categories";
 import { SettingsInputAntennaTwoTone } from "@mui/icons-material";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import React from "react";
 
 
-const columns = [
-  { field: '_id', headerName: 'Item ID', width: 120 },
+
+const Buttons = (params) => {
+  return (
+      <strong>
+          <button className="DT_Btn"
+              onClick={() => {
+                 
+              }}
+          >
+              < EditIcon className="DTicon"/>
+          </button>
+
+          <button className="DT_Btn"
+              // onClick={() => {
+                 
+              // }}
+          >
+              <DeleteOutlineOutlinedIcon className="DTicon"/>
+          </button>
+
+      </strong>
+  )
+}
+
+const columnsProducts = [
+  { field: '_id', headerName: 'Item ID', width: 120 , },
   { field: 'Item_Name', headerName: ' Item Name', width: 130 },
   { field: 'Cat_Name', headerName: 'Category', width: 130 },
   { field: 'Item_price', headerName: 'Item Price', width: 130 },
-  { field: 'Item_picture', headerName: 'Item Picture', width: 140 },
+  { field: 'Item_picture', headerName: 'Item Picture', width: 140, renderCell: (params) => <div className="cell"> <img className="DT_img" src = {params.value}/></div> },
   { field: 'Item_desc', headerName: 'Item Description', width: 130 },
-  { field: 'action', headerName: 'Action', width: 130 },
+  { field: 'action', headerName: 'Action', width: 130, renderCell: Buttons },
 ];
 
+
+
+
+
 var token = JSON.parse(localStorage.getItem("token"));
+
+
+
 
 const Datatable = () => {
 
@@ -28,11 +61,12 @@ const Datatable = () => {
   var [data, setData] = useState([]);
   var prior = [];
 
+ 
 
 
 
 
-  
+
   useEffect(() => {
   
 
@@ -52,7 +86,7 @@ view2()
 
 useEffect(() => {
 
-const getTotal = async() => {
+const getProductData = async() => {
   var i = 0;
   for (var item in foodItems) {
 var name = "";
@@ -77,7 +111,7 @@ var name = "";
                 setData(prior)
 }
 
-getTotal();
+getProductData();
 }, [foodItems])
 
 console.log(data)
@@ -90,13 +124,14 @@ console.log(data)
       
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
-
           rows={data} 
-          columns={columns}
+          columns={ columnsProducts
+          }
           getRowId={(row) => row._id}
           pageSize={5}
           rowsPerPageOptions={[5]}
           checkboxSelection
+          
         />
       </div>
       {/* <button className="datatablebtn" onClick={view}> View Products </button> */}

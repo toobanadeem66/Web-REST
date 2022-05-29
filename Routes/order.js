@@ -41,6 +41,8 @@ router.get("/",verifyAccessToken,checkRole, (req, res, next) => {
     });
 });
 
+
+
 router.post("/",verifyAccessToken, (req, res, next) => {
   restaurant.find({R_ID : req.body.R_ID})
     .then(restaurant => {
@@ -97,6 +99,30 @@ router.post("/",verifyAccessToken, (req, res, next) => {
       });
     });
 });
+
+router.get("/getOrders", verifyAccessToken, checkRole, (req,res,next) => {
+
+User.findById(req.payload.aud)
+
+.then(result => {
+    Order.find({R_ID: result.R_ID}) 
+    .exec()
+    .then(result => {
+        res.status(200).json({
+            Orders: result
+            
+        })
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        })
+    })
+})
+})
+
+
 
 router.get("/:orderId",verifyAccessToken, (req, res, next) => {
   Order.findById({_id: req.params.orderId})

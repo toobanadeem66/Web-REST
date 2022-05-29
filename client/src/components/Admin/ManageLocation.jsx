@@ -9,7 +9,6 @@ const ManageLocation = () => {
           <Sidebar/>
           <div className = "listContainer">
               <Navbar/>
-              <Datatable/>
           </div>
       </div>
     )

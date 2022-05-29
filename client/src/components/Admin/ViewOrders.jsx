@@ -1,6 +1,6 @@
 import Sidebar from "../../elements/sidebar/sidebar.jsx";
 import Navbar from "../../elements/navbar/navbar.jsx";
-import Datatable from "../../elements/datatable/Datatable.jsx";
+import DatatableOrders from "../../elements/datatable/DatatableOrders";
 import "./ViewOrders.scss";
 
 const ViewOrders = () => {
@@ -9,7 +9,7 @@ const ViewOrders = () => {
         <Sidebar/>
         <div className = "listContainer">
             <Navbar/>
-            <Datatable/>
+            <DatatableOrders/>
             </div>
         </div>
   )

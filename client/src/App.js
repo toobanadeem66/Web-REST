@@ -10,6 +10,7 @@ import ViewOrders from "./components/Admin/ViewOrders";
 import ManageProduct from "./components/Admin/ManageProduct";
 import ManageCategory from "./components/Admin/ManageCategory";
 import RestaurantProfile from "./components/Admin/RestaurantProfile";
+import ManageCustomers from "./components/Admin/ManageCustomers"
 
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
 			</Route>
 
 			<Route path="/users">
-				{user && <Route index element={<List />} />}
+				{user && <Route index element={<ManageCustomers />} />}
 				{!user && <Route index element = {"404 NOT FOUND"} /> }
 			</Route>
 			

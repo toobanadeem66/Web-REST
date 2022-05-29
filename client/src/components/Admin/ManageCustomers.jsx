@@ -1,14 +1,14 @@
 import Sidebar from "../../elements/sidebar/sidebar.jsx";
 import Navbar from "../../elements/navbar/navbar.jsx";
-import Datatable from "../../elements/datatable/Datatable";
+import DatatableCustomers from "../../elements/datatable/DatatableCustomers";
 
 const ManageCustomer = () => {
     return (
-      <div className = "customer">
+      <div className = "list">
           <Sidebar/>
           <div className = "listContainer">
               <Navbar/>
-              <Datatable/>
+              <DatatableCustomers/>
           </div>
       </div>
     )

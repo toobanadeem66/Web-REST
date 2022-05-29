@@ -13,3 +13,12 @@ export async function getCategoriesById(id) {
 
       return response;
 }
+
+export  async function getCategories() {
+  var response = await axios.get("http://localhost:3000/Category", header)
+      .catch(err => {
+        console.log(err);
+      });
+
+      return response
+  }

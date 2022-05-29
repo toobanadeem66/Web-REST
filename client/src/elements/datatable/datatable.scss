@@ -7,3 +7,28 @@
     margin-top: 20px;
 
 }
+.DT_Btn{
+    background: none;
+    border: none;
+
+    .DTicon{
+        width: 20px;
+        height: 20px;
+    }
+ }
+
+
+
+
+ 
+.cell{
+    display: flex;
+    align-items: center;
+.DT_img{
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+}

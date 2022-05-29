@@ -77,11 +77,7 @@ router.get("/:statusId", (req, res, next) => {
       console.log("From database", doc);
       if (doc) {
         res.status(200).json({
-            status: doc,
-            request: {
-                type: 'GET',
-                url: 'http://localhost:3000/status'
-            }
+            status: doc
         });
       } else {
         res

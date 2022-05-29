@@ -11,7 +11,8 @@ router.post('/',verifyAccessToken,checkRole,(req,res,next)=>{
         _id:new mongoose.Types.ObjectId,
         Cat_Name:req.body.Cat_Name,
         Parent_id:req.body.Parent_id,
-        R_ID: req.body.R_ID
+        R_ID: req.body.R_ID,
+        Cat_ID:req.body.Cat_ID
     })
 
     category.save() // saving data to database

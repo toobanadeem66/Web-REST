@@ -1,6 +1,6 @@
 import Sidebar from "../../elements/sidebar/sidebar.jsx";
 import Navbar from "../../elements/navbar/navbar.jsx";
-import Datatable from "../../elements/datatable/Datatable";
+import DatatableCategory from "../../elements/datatable/DatatableCategory.jsx";
 import "./ManageCategory.scss";
 
 const ManageCategory = () => {
@@ -9,7 +9,7 @@ const ManageCategory = () => {
           <Sidebar/>
           <div className = "listContainer">
               <Navbar/>
-              <Datatable/>
+              <DatatableCategory/>
           </div>
       </div>
     )
