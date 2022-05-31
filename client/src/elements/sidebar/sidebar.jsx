@@ -9,11 +9,40 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import CategoryIcon from '@mui/icons-material/Category';
 import EditLocationAltOutlinedIcon from '@mui/icons-material/EditLocationAltOutlined';
 import {Navigate} from 'react-router-dom';
-import React, {useState } from 'react'
+import React, {useState,useEffect } from 'react'
+import {updateProfile,getProfile} from "../../API calls/Restaurants";
 
 const Sidebar = () => {
-
+  const id =localStorage.getItem("RID")   
+  const[name,setname]=useState("");
   const [navigate, setNavigate] = useState(false);
+  const[restaurant,setRestuarant] =useState([]);
+
+  useEffect(() => {
+    const view2 = async () => {
+     getProfile().then((response)=>{
+       setRestuarant(response.data.products)
+     
+     })
+    
+    }
+    view2()
+  }, [])
+
+  useEffect(() => {
+    const view = async () => {     
+       console.log(restaurant)
+       for (var item in restaurant){
+         if(restaurant[item].R_ID == id){
+        
+        setname(restaurant[item].R_name)
+        
+       
+         }
+        }    
+    }
+    view()
+  }, [restaurant])
 
   const logout = async () => {
     window.localStorage.clear();
@@ -28,7 +57,7 @@ if (navigate) {
     <div className="sidebar">
       <div className="top"> 
 
-      <span className="logo"> TSY Admin </span>
+      <span className="logo"> {name} </span>
 
       </div> 
 
@@ -38,7 +67,7 @@ if (navigate) {
         <ul>
           <p className="title"> MAIN </p>
          
-         <Link to= "/dashboard" style={{ textDecoration: "none" }} >
+         {/* <Link to= "/dashboard" style={{ textDecoration: "none" }} >
           <li>
             <DashboardIcon className="icon"/>
             <span> Dashboard </span>
@@ -50,7 +79,7 @@ if (navigate) {
             <EditLocationAltOutlinedIcon className="icon" />
             <span> Delivery Locations </span>
           </li>
-          </Link>
+          </Link> */}
 
           <Link to = "/ManageCategory" style={{ textDecoration: "none" }}>
           <li>
@@ -94,15 +123,7 @@ if (navigate) {
               </Link>  
         </ul>
       </div>    
-      <div className="bottom">
-        <div className="colorOption">
-
-        </div>
-        <div className="colorOption">
-
-          
-        </div>
-       </div> 
+     
 
    </div>
   )

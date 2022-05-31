@@ -57,7 +57,7 @@ const deleteItem = async (id) => {
 const Buttons = thisRow => {
   return (
     <strong>
-      <EditButton row={thisRow.row} />
+      {/* <EditButton row={thisRow.row} /> */}
       <DeleteButton row={thisRow.row} />
     </strong>
   )
@@ -153,7 +153,7 @@ const DatatableCustomers = () => {
             setSearchTerm(event.target.value);
           }}
         />
-        <button onClick={handleSearch}>Click Me!</button>
+        <button onClick={handleSearch}>Search</button>
         <button onClick={resetSearch}>Reset Data</button>
       </div>
       {/* <button className="datatablebtn" onClick={view}> View Products </button> */}

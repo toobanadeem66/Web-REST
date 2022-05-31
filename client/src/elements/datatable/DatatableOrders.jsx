@@ -43,7 +43,7 @@ const EditButton = row => {
           <div onClick={togglePopup} className="overlay"></div>
           <div className="modal-content">
             <form onSubmit={update}>
-            <label>Order Status:</label>
+            <label>Order Status:  </label>
               <input type="text" placeholder={status}
                 value={status}
                 onChange={(e) => setStatus(e.target.value)} />

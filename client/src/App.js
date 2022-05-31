@@ -21,10 +21,10 @@ function App() {
 			<Route path="/AdminLogin" exact element={< AdminLogin />} />
 			<Route path="/login" exact element={<AdminLogin />} />
 
-			<Route path="/dashboard" >
+			{/* <Route path="/dashboard" >
 				{ user && <Route index element={< AdminHome />} />}
 				{!user && <Route index element = {"404 NOT FOUND"} /> }
-			</Route>
+			</Route> */}
 
 			<Route path="/ManageProduct" >
 				{user && <Route index element={<ManageProduct />} />}

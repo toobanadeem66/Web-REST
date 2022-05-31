@@ -52,7 +52,7 @@ const ManageProduct = () => {
         <Navbar />
         <Datatable />
         <>
-          <button 
+          <button className="addBTN"
             onClick={togglePopup}>
             Add Product
           </button>

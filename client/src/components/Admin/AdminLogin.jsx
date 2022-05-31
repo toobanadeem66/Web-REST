@@ -33,7 +33,7 @@ const AdminLogin = () => {
 					localStorage.setItem('refreshToken', JSON.stringify(data.refreshToken))
 					localStorage.setItem("RID", JSON.stringify(data.RID));
 					alert('Login successful')
-					window.location = "/dashboard";
+					window.location = "/ManageProduct";
 				}
 				else {
 					//console.log(data.role)

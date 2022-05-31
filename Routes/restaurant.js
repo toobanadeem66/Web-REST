@@ -47,47 +47,33 @@ router.get('/', (req, res, next)=>{
     });
 });
 
-// router.post("/", (req, res, next) => {
-//     User.findbyID(req.body.User_ID)
-//     .then(restaurant=>{
-//         if(!restaurant) {
-//             return res.status(404).json({
-//                 message: "restaurant not found"
-//             });
-//         }
-//       const Restaurant = new Restaurant({
-//         R_ID: new mongoose.Types.ObjectId(),
-//         R_name: req.body.R_name,
-//         R_loc: req.body.R_loc,
-//         R_logo: req.body.R_logo,
-//         User_ID: req.body.User_ID
-//     });
-//     return Restaurant.save();
-// })
-//     .then(result => {
-//         console.log(result);
-//         res.status(201).json({
-//           message: "Created Restaurant successfully",
-//           createdRestaurant: {
-//             R_ID: result.R_ID,
-//             R_name: result.R_name,
-//             R_loc: result.R_loc,
-//             R_logo: result.R_logo,
-//             User_ID: result.User_ID,
-//               request: {
-//                   type: 'GET',
-//                   url: "http://localhost:3000/restaurant/" + result.R_ID
-//               }
-//           }
-//         });
-//       })
-//       .catch(err => {
-//         console.log(err);
-//         res.status(500).json({
-//           error: err
-//         });
-//       });
-//   });
+router.post("/", (req, res, next) => {
+   
+      const restaurant = new Restaurant({
+        R_ID: req.body.R_ID,
+        R_name: req.body.R_name,
+        R_loc: req.body.R_loc,
+        R_About :req.body.R_About,
+        R_History:req.body.R_History,
+        R_logo: req.body.R_logo
+        
+    })
+    restaurant.save() // saving data to database
+    .then(result=>{
+        console.log(result);
+        res.status(200).json({
+            newRestaurant:result
+        })
+    })
+
+    .catch(err=>{
+        console.log(err);
+        res.status(500).json({
+                error:err
+            
+        })
+    })
+  })
 
 
   router.get('/:id',verifyAccessToken,checkRole, (req, res, next) => {

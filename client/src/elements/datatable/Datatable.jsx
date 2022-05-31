@@ -151,7 +151,7 @@ const columnsProducts = [
 ];
 
 const Datatable = () => {
-
+  
   var [search, setSearchTerm] = useState([]);
   var [foodItems, setFoodItems] = useState([]);
   var [original, setoriginal] = useState([]);
@@ -185,10 +185,11 @@ const Datatable = () => {
   }, [])
 
   useEffect(() => {
-
+    var rid=localStorage.getItem("RID")
     const getProductData = async () => {
       //var i = 0;
       for (var item in foodItems) {
+        if(foodItems[item].R_ID == rid){
         var name = "";
         var id = foodItems[item].Cat_id
         await getCategoriesById(id).then((response) => {
@@ -206,7 +207,7 @@ const Datatable = () => {
         }
         //console.log(json)
         prior.push(json)
-
+      }
       }
       setoriginal(prior)
       setData(prior)
@@ -219,7 +220,7 @@ const Datatable = () => {
   return (
     <div className="datatable">
 
-      <div style={{ height: 400, width: '100%' }}>
+      <div style={{ height: 500, width: '100%' }}>
         <DataGrid
           rows={data}
           columns={columnsProducts
@@ -241,8 +242,6 @@ const Datatable = () => {
         <button onClick={handleSearch}>Search</button>
         <button onClick={resetSearch}>Reset Data</button>
       </div>
-
-
     </div>
 
   )
