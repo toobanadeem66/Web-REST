@@ -35,12 +35,20 @@ export  async function getCategories() {
       return response;
 }
 
-export async function AddCategory() {
+export async function addCategory(catname,pid,rid,catid) {
 
-   var response = await Api.post(`http://localhost:3000/Category}`)
-      .catch(err => {
-         console.log(err)
-      })
+   var response = await Api.post(`http://localhost:3000/Category`,
+   {
+     
+     Cat_Name:catname,
+     Parent_id:pid,
+     R_ID:rid,
+     Cat_ID:catid
+
+   })
+   .catch(err => {
+     console.log("err");
+   });
 
       return response;
 }

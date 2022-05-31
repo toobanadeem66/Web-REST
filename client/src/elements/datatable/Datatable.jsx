@@ -3,24 +3,102 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { display } from "@mui/system";
-import { getFoodItems, deleteFoodItem } from "../../API calls/FoodItems";
+import { getFoodItems, deleteFoodItem, updatefooditembyid, getfooditembyid } from "../../API calls/FoodItems";
 import { getCategoriesById } from "../../API calls/Categories";
 import { SettingsInputAntennaTwoTone } from "@mui/icons-material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import React from "react";
 
+
 const EditButton = row => {
+  const categoryid = (ID) => {
+     getfooditembyid(ID).then((response) => {
+      setProductCategory(response.data.fooditem.Cat_id)
+    })
+
+  };
+  
+ 
+
+  var [updatename, setUpdateName] = useState("");
+  var [updateprice, setUpdatePrice] = useState("");
+  var [updatedes, setUpdateDesc] = useState("");
+  var [foodid, setUpdateID] = useState("");
+  var [ProductCategory, setProductCategory] = useState("");
+  var [RID, setR_ID] = useState("");
+  var [updateURL, setUpdateURL] = useState("");
+  const [popup, setpopup] = useState(false);
+
+  const update = () => {
+    updatefooditembyid(foodid, updatename, updateprice, updatedes, updateURL, RID).then((response) => {
+      console.log(response.data)
+
+    })
+
+  };
+
+  const togglePopup = () => {
+    setpopup(!popup);
+    //  Edit
+    categoryid(row.row._id)
+    setUpdateName(row.row.Item_Name)
+    setUpdatePrice(row.row.Item_price)
+    setUpdateDesc(row.row.Item_desc)
+    setUpdateID(row.row._id)
+    setUpdateURL(row.row.Item_picture)
+    setR_ID(row.row.R_ID)
+
+  };
+
   return (
-    <button className="DT_Btn"
-      onClick={() => {
-        //  Edit
-        console.log("Edit : " + row.row.Cat_Name)
-        console.log("Edit : " + row.row._id)
-      }}
-    >
-      < EditIcon className="DTicon" />
-    </button>
+    <>
+      <button className="DT_Btn"
+        onClick={togglePopup}>
+        < EditIcon className="DTicon" />
+      </button>
+
+      {popup && (
+        <div className="modal">
+          <div onClick={togglePopup} className="overlay"></div>
+          <div className="modal-content">
+            <form onSubmit={update}>
+              <label>Product:</label>
+              <input type="text" placeholder={updatename}
+                value={updatename}
+                onChange={(e) => setUpdateName(e.target.value)} />
+              <br />
+              <label>Price: </label>
+              <input type="text" placeholder={updateprice}
+                value={updateprice}
+                onChange={(e) => setUpdatePrice(e.target.value)} />
+              <br />
+              <label>Description: </label>
+              <input type="text" placeholder={updatedes}
+                value={updatedes}
+                onChange={(e) => setUpdateDesc(e.target.value)} />
+              <br />
+              <label>Picture url: </label>
+              <input type="text" placeholder={updateURL}
+                value={updateURL}
+                onChange={(e) => setUpdateURL(e.target.value)} />
+              <br />
+              <label>Category: </label>
+              <input type="text" placeholder={ProductCategory}
+                value={ProductCategory}
+                onChange={(e) => setProductCategory(e.target.value)} />
+              <br />
+              <input type="submit" value="Update" />
+            </form>
+            <button className="close-modal" onClick={togglePopup}>
+              CLOSE
+            </button>
+          </div>
+        </div>
+      )}
+
+    </>
+
   );
 }
 
@@ -53,10 +131,6 @@ const deleteItem = async (id) => {
   window.location.reload()
 }
 
-const addProduct = () => {
-  // Add Product functionality
-}
-
 const Buttons = thisRow => {
   return (
     <strong>
@@ -64,7 +138,7 @@ const Buttons = thisRow => {
       <DeleteButton row={thisRow.row} />
     </strong>
   )
-  }
+}
 
 const columnsProducts = [
   { field: '_id', headerName: 'Item ID', width: 120, },
@@ -83,8 +157,8 @@ const Datatable = () => {
   var [original, setoriginal] = useState([]);
   var [data, setData] = useState([]);
   var prior = [];
-  var prior1 =[];
-  
+  var prior1 = [];
+
   const resetSearch = async (e) => {
     setData(original)
     setSearchTerm("")
@@ -93,12 +167,12 @@ const Datatable = () => {
   const handleSearch = async (e) => {
     for (var item in original) {
       if (original[item].Item_Name.toLowerCase().includes(search.toLowerCase()) && search != "") {
-        
+
         prior1.push(original[item])
       }
     }
     setData(prior1)
-    
+
   }
 
   useEffect(() => {
@@ -153,7 +227,7 @@ const Datatable = () => {
           getRowId={(row) => row._id}
           pageSize={5}
           rowsPerPageOptions={[5]}
-         
+
         />
       </div>
       {/* <SearchBar placeholder="Search..." data={foodItems}/> */}
@@ -164,21 +238,11 @@ const Datatable = () => {
             setSearchTerm(event.target.value);
           }}
         />
-        <button onClick={handleSearch}>Click Me!</button>
+        <button onClick={handleSearch}>Search</button>
         <button onClick={resetSearch}>Reset Data</button>
       </div>
 
-      <div className="add_btn">
-        <button className="add_btn"
-          onClick={() => {
-            //  Add
-            console.log("Add")
-            addProduct()
-          }}
-        >
-          <strong>Add Product</strong>
-        </button>
-      </div>
+
     </div>
 
   )

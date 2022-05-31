@@ -85,13 +85,14 @@ router.delete('/:id', verifyAccessToken,checkRole, (req, res, next) => {
 
 // update fooditem data
 router.put('/:id', verifyAccessToken,checkRole, (req, res, next) => {
+    console.log(req.body)
     Food_items.findOneAndUpdate({ _id: req.params.id }, {
         $set: {
-            Item_Name:req.body.FooditemName,
+            Item_Name:req.body.Item_Name,
             Cat_id:req.body.Cat_id,
             Item_price:req.body.Item_price,
-            Item_picture: req.body.item_picture,
-            Item_desc: req.body.item_desc
+            Item_picture: req.body.Item_picture,
+            Item_desc: req.body.Item_desc
         }
     })
         .then(result => {

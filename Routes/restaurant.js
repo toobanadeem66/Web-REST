@@ -6,42 +6,46 @@ const User = require('../Models/User.model')
 const{ checkRole,verifyAccessToken} = require('../helpers/jwthelper')
 
 
-// router.get('/', (req, res, next)=>{
-//     Restaurant.find()
-//     .select("R_ID R_name R_loc R_logo User_ID")
-//     .exec()
-//     .then(docs => {
-//       const response = {
-//         count: docs.length,
-//         products: docs.map(doc => {
-//           return {
-//             R_ID: doc.R_ID,
-//             R_name: doc.R_name,
-//             R_loc: doc.R_loc,
-//             R_logo: doc.R_logo,
-//             User_ID: doc.User_ID,
-//             request: {
-//               type: "GET",
-//               url: "http://localhost:3000/restaurant/" + doc.R_ID
-//             }
-//           };
-//         })
-//       };
-//       //   if (docs.length >= 0) {
-//       res.status(200).json(response);
-//       //   } else {
-//       //       res.status(404).json({
-//       //           message: 'No entries found'
-//       //       });
-//       //   }
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({
-//         error: err
-//       });
-//     });
-// });
+router.get('/', (req, res, next)=>{
+  console.log("in")
+    Restaurant.find()
+    .select("R_ID R_name R_loc R_logo User_ID R_History R_About")
+    .exec()
+    .then(docs => {
+      const response = {
+        count: docs.length,
+        products: docs.map(doc => {
+          return {
+            _id:doc._id,
+            R_ID: doc.R_ID,
+            R_name: doc.R_name,
+            R_loc: doc.R_loc,
+            R_logo: doc.R_logo,
+            R_History: doc.R_History,
+            R_About: doc.R_About,
+            User_ID: doc.User_ID,
+            request: {
+              type: "GET",
+              url: "http://localhost:3000/restaurant" 
+            }
+          };
+        })
+      };
+      //   if (docs.length >= 0) {
+      res.status(200).json(response);
+      //   } else {
+      //       res.status(404).json({
+      //           message: 'No entries found'
+      //       });
+      //   }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+});
 
 // router.post("/", (req, res, next) => {
 //     User.findbyID(req.body.User_ID)
@@ -86,8 +90,8 @@ const{ checkRole,verifyAccessToken} = require('../helpers/jwthelper')
 //   });
 
 
-  router.get("/:restaurantID",verifyAccessToken,checkRole, (req, res, next) => {
-    Restaurant.findById({_id: req.params.restaurantID})
+  router.get('/:id',verifyAccessToken,checkRole, (req, res, next) => {
+    Restaurant.findById({_id: req.params.id})
       .exec()
       .then(restaurant => {
         if (!restaurant) {
@@ -109,6 +113,31 @@ const{ checkRole,verifyAccessToken} = require('../helpers/jwthelper')
         });
       });
   }); 
+
+  router.put('/:id', verifyAccessToken,checkRole, (req, res, next) => {
+    console.log(req.body)
+    Restaurant.findOneAndUpdate({ R_ID: req.params.id }, {
+        $set: {
+          R_name: req.body.R_name,
+          R_loc : req.body.R_loc,
+          R_About :req.body.R_About,
+          R_History:req.body.R_History,
+          R_logo: req.body.R_logo
+        }
+    })
+        .then(result => {
+            res.status(200).json({
+                updated_Restaurant: result
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+  
+        })
+  })
 
 
 

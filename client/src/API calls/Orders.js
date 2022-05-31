@@ -20,3 +20,18 @@ export async function deleteOrder(id) {
 
   return response
 }
+
+export async function updateOrder(orderId, paymentstatus, status) {
+  var response = await Api.put(`http://localhost:3000/orders/${orderId}`,
+    {
+      isPaid:paymentstatus,
+      Order_Status:status 
+   }
+  )
+    .catch(err => {
+      console.log(err);
+    });
+
+  return response
+}
+

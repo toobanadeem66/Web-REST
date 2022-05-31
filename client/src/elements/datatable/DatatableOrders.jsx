@@ -2,7 +2,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { display } from "@mui/system";
-import { getOrders, deleteOrder } from "../../API calls/Orders";
+import { getOrders, deleteOrder,updateOrder } from "../../API calls/Orders";
 import { getUsersById } from "../../API calls/Users";
 import { SettingsInputAntennaTwoTone } from "@mui/icons-material";
 import EditIcon from '@mui/icons-material/Edit';
@@ -11,16 +11,59 @@ import React from "react";
 
 
 const EditButton = row => {
+  const [popup, setpopup] = useState(false);
+  const [status, setStatus] = useState("");
+  const [paymentstatus, setpaymentstatus] = useState("");
+  const[orderId,setorderid] =useState("");
+
+  const update = () => {
+    updateOrder(orderId,paymentstatus,status).then((response) => {
+      console.log(response.data)
+
+    })
+  };
+
+  const togglePopup = () => {
+    setpopup(!popup); 
+    setorderid(row.row._id)    
+    setStatus(row.row.Order_Status)
+    setpaymentstatus(row.row.isPaid)
+    
+  };
+
   return (
-    <button className="DT_Btn"
-      onClick={() => {
-        //  Edit
-        console.log("Edit : " + row.row.Cat_Name)
-        console.log("Edit : " + row.row._id)
-      }}
-    >
-      < EditIcon className="DTicon" />
-    </button>
+    <>
+      <button className="DT_Btn"
+        onClick={togglePopup}>
+        < EditIcon className="DTicon" />
+      </button>
+
+      {popup && (
+        <div className="modal">
+          <div onClick={togglePopup} className="overlay"></div>
+          <div className="modal-content">
+            <form onSubmit={update}>
+            <label>Order Status:</label>
+              <input type="text" placeholder={status}
+                value={status}
+                onChange={(e) => setStatus(e.target.value)} />
+              <br />
+              <label>Payment Status: </label>
+              <input type="text" placeholder={paymentstatus}
+                value={paymentstatus}
+                onChange={(e) => setpaymentstatus(e.target.value)} />
+              <br />
+              <input type="submit" value="Update" />
+            </form>
+            <button className="close-modal" onClick={togglePopup}>
+              CLOSE
+            </button>
+          </div>
+        </div>
+      )}
+
+    </>
+
   );
 }
 

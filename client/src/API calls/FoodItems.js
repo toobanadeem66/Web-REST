@@ -1,7 +1,17 @@
 import Api from './Api';
+import { useState } from "react";
 
-export async function AddFoodItems() {
-  var response = Api.post("http://localhost:3000/Food_item")
+export async function AddFoodItems(updatename,updatecategory,updateprice,updateURL,updatedes,R_ID) {
+  var response = Api.post("http://localhost:3000/Food_item",
+  {
+    Item_Name:updatename,
+    Cat_id:updatecategory,
+    Item_price:updateprice,
+    Item_picture: updateURL,
+    Item_desc: updatedes,
+    R_ID:R_ID
+
+  })
     .catch(err => {
       console.log("err");
     });
@@ -36,9 +46,18 @@ export async function getfooditembyid(id) {
   return response
 }
 
-export async function updatefooditembyid(id) {
+export async function updatefooditembyid(id,updatename,updateprice,updatedes,updateURL,RID) {
 
-  var response = await Api.put(`http://localhost:3000/Food_item/${id}`)
+  var response = await Api.put(`http://localhost:3000/Food_item/${id}`,
+    {
+      Item_Name:updatename,
+      Cat_id:"623ee33578dfc43825843094",
+      Item_price:updateprice,
+      Item_picture: updateURL,
+      Item_desc: updatedes,
+      R_ID:RID
+
+    })
     .catch(err => {
       console.log("err");
     });

@@ -29,7 +29,7 @@ instance.interceptors.response.use(
     async (error) => {
         const originalConfig = error.config;
 
-        if (originalConfig.url !== "http://localhost:3000/auth/login" && error.response) {
+        if (originalConfig.url != "http://localhost:3000/auth/login" && error.response) {
 
             try {
 

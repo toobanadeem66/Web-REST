@@ -4,8 +4,8 @@ import { getUsersById } from "../../API calls/Users";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import React from "react";
-import ReactDOM from "react-dom";
-import { getCategories, deleteCategory } from '../../API calls/Categories';
+//import ReactDOM from "react-dom";
+import { getCategories, deleteCategory,addCategory } from '../../API calls/Categories';
 
 const EditButton = row => {
   return (
@@ -60,7 +60,9 @@ const Buttons = thisRow => {
 }
 
 // add category
-const addCategory = () => {
+const AddCategory = () => {
+  var data =[];
+  const [s,seta]=useState()
   
 }
 
@@ -74,9 +76,6 @@ const columnCategory = [
 ]
 
 var token = JSON.parse(localStorage.getItem("token"));
-
-
-
 
 const DatatableCategory = () => {
 
@@ -177,15 +176,7 @@ useEffect(() => {
       </div>
 
       <div className="add_btn">
-        <button className="add_btn"
-          onClick={() => {
-            //  Add
-            console.log("Add")
-            addCategory()
-          }}
-        >
-          <strong>Add Category</strong>
-        </button>
+        <button onClick={AddCategory}>Add Category</button>
       </div>
     </div>
   )
