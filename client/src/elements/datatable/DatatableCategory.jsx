@@ -8,17 +8,41 @@ import React from "react";
 import { getCategories, deleteCategory,addCategory } from '../../API calls/Categories';
 
 const EditButton = row => {
+  const [popup, setpopup] = useState(false);
+
+  const update = () => {
+    
+  };
+
+  const togglePopup = () => {
+    setpopup(!popup);
+    
+
+  };
+
   return (
-    <button className="DT_Btn"
-      onClick={() => {
-        //  Edit
-        console.log("Edit : " + row.row.Cat_Name)
-        console.log("Edit : " + row.row._id)
-      }}
-    >
-      < EditIcon className="DTicon" />
-    </button>
+    <>
+      <button className="DT_Btn"
+        onClick={togglePopup}>
+        < EditIcon className="DTicon" />
+      </button>
+
+      {popup && (
+        <div className="modal">
+          <div onClick={togglePopup} className="overlay"></div>
+          <div className="modal-content">
+           
+            <button className="close-modal" onClick={togglePopup}>
+              CLOSE
+            </button>
+          </div>
+        </div>
+      )}
+
+    </>
+
   );
+
 }
 
 const DeleteButton = row => {
@@ -57,13 +81,6 @@ const Buttons = thisRow => {
       <DeleteButton row={thisRow.row} />
     </strong>
   )
-}
-
-// add category
-const AddCategory = () => {
-  var data =[];
-  const [s,seta]=useState()
-  
 }
 
 const columnCategory = [
@@ -154,7 +171,7 @@ useEffect(() => {
   return (
     <div className="datatable">
       
-      <div style={{ height: 400, width: '100%' }}>
+      <div style={{ height: 500, width: '100%' }}>
         <DataGrid
           rows={categories} 
           columns={ columnCategory}
@@ -171,13 +188,11 @@ useEffect(() => {
             setSearchTerm(event.target.value);
           }}
         />
-        <button onClick={handleSearch}>Click Me!</button>
+        <button onClick={handleSearch}>Search</button>
         <button onClick={resetSearch}>Reset Data</button>
       </div>
 
-      <div className="add_btn">
-        <button onClick={AddCategory}>Add Category</button>
-      </div>
+      
     </div>
   )
 }

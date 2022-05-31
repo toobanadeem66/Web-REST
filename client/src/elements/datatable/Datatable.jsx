@@ -18,9 +18,7 @@ const EditButton = row => {
     })
 
   };
-  
  
-
   var [updatename, setUpdateName] = useState("");
   var [updateprice, setUpdatePrice] = useState("");
   var [updatedes, setUpdateDesc] = useState("");
