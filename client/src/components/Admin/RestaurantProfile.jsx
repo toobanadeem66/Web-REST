@@ -24,7 +24,7 @@ import {updateProfile,getProfile} from "../../API calls/Restaurants";
 
   const handleSubmit = async (e) => {
     
-    updateProfile(rid,data).then((response)=>{
+    updateProfile(id,data).then((response)=>{
       console.log(response.data)
     })
 
@@ -52,7 +52,7 @@ import {updateProfile,getProfile} from "../../API calls/Restaurants";
         sethistory(restaurant[item].R_History)
         setabout(restaurant[item].R_About)
         setloc(restaurant[item].R_loc)
-              
+       
          }
         }    
     }

@@ -2,6 +2,7 @@ import Api from './Api';
 
 export async function updateProfile(id,data) {
 
+   console.log("in")
    var response = await Api.put(`http://localhost:3000/restaurant/${id}`,data)
       .catch(err => {
          console.log(err)
