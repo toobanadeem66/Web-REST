@@ -43,7 +43,7 @@ const EditButton = row => {
           <div onClick={togglePopup} className="overlay"></div>
           <div className="modal-content">
             <form onSubmit={update}>
-            <label>Order Status:  </label>
+            <label>Order Status:</label>
               <input type="text" placeholder={status}
                 value={status}
                 onChange={(e) => setStatus(e.target.value)} />
@@ -166,7 +166,7 @@ useEffect(() => {
        var name = "";
        var paid = "";
     for(var item in data){
-      if(!data[item].isActive){
+      if(data[item].isActive){
       await getUsersById(data[item].User_ID).then((response) => {
        name = response.data.user.username;
       })
