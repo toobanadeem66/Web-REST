@@ -33,6 +33,14 @@ function Subtotal() {
     setTotal(sum);
     console.log(total)
   }, [])
+
+  const proceed = () => {
+    // show the order placed popup
+    window.alert("Your order has been placed, Thankyou!");
+    // navigate to checkout
+    history("/Menu");
+  }
+
   return (
     <div className="subtotal">
       <CurrencyFormat
@@ -53,8 +61,8 @@ function Subtotal() {
         thousandSeparator={true}
         prefix={"Rs "}
       />
-
-      <button onClick={e => history.push('/payment')}>Proceed to Checkout</button>
+      {/* Navigate to Menu page */}
+      <button onClick={proceed}>Proceed to Checkout</button>
     </div>
   );
 }
