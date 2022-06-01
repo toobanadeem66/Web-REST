@@ -1,44 +1,41 @@
 import React from 'react'
+import "./checkoutproduct.scss"
 import { useStateValue } from "../../redux/StateProvider";
-
-
-
-
-const CheckoutProduct = ({ id, image, title, price, rating, hideButton }) => {
-
-    const [{ basket }, dispatch] = useStateValue();
-    const removeFromBasket = () => {
-        // remove the item from the basket
-        dispatch({
-            type: 'REMOVE_FROM_BASKET',
-            id: id,
-        })
+const CheckoutProduct = ({ id, title, image, price, qty}) => {
+    const removeFromCart = id => {
+        console.log("Removed from cart", id)
+        // get local storage cart
+        var cart = JSON.parse(localStorage.getItem("cart"));
+        console.log(cart)
+        var newCart = cart.filter(item => item.id !== id);
+        // set local storage cart
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        window.location.reload();
     }
-    
-
-
-    var image = ""
-    var title = ""
-    var price = ""
-
-  return (
-    <div className='checkoutProduct'>
-    <img className='checkoutProduct__image' src={image} />
-
-    <div className='checkoutProduct__info'>
-        <p className='checkoutProduct__title'>{title}</p>
-        <p className="checkoutProduct__price">
-            <small>Rs</small>
-            <strong>{price}</strong>
-        </p>
-
-
-        {!hideButton && (
-            <button onClick={removeFromBasket}>Remove from Basket</button>
-        )}
-    </div>
-</div>
-  )
+    return (
+        <div className='checkoutProduct'>
+            {/* image */}
+            <img className='checkoutProduct__image' src={image} />
+            {/* info */}
+            <div className='checkoutProduct__info'>
+                {/* title */}
+                <p className='checkoutProduct__title'>{title}</p>
+                {/* price */}
+                <p className="checkoutProduct__price">
+                    <small>Rs</small>
+                    <strong>{price}</strong>
+                </p>
+                {/* qty */}
+                <p className="checkoutProduct__price">
+                    <small>Qty</small>
+                    <strong>{qty}</strong>
+                </p>
+                {
+                    <button onClick={() => removeFromCart(id)}>Remove from Basket</button>
+                }
+            </div>
+        </div>
+    )
 }
 
 export default CheckoutProduct
