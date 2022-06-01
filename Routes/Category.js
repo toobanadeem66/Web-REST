@@ -3,7 +3,7 @@ const router = express.Router();
 const Category = require('../models/Category');
 const mongoose = require('mongoose');
 const{ checkRole,verifyAccessToken} = require('../helpers/jwthelper')
-
+const User = require('../Models/User.model')
 
 // add new Category 
 router.post('/',verifyAccessToken,checkRole,(req,res,next)=>{
@@ -35,7 +35,10 @@ router.post('/',verifyAccessToken,checkRole,(req,res,next)=>{
 
 // Read Category 
 router.get('/',verifyAccessToken,(req,res,next)=>{
-    Category.find()
+    User.findById(req.payload.aud)
+            .then(result => {
+
+    Category.find({R_ID: result.R_ID})
     .exec()
     .then(result=>{
         res.status(200).json({
@@ -48,6 +51,9 @@ router.get('/',verifyAccessToken,(req,res,next)=>{
             error:err
         })
     })
+
+            })
+
 });
 
 // can get Category by their product id 

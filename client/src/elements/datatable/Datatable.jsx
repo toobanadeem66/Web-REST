@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { display } from "@mui/system";
 import { getFoodItems, deleteFoodItem, updatefooditembyid, getfooditembyid } from "../../API calls/FoodItems";
-import { getCategoriesById } from "../../API calls/Categories";
+import { getCategoriesById , getCategories} from "../../API calls/Categories";
 import { SettingsInputAntennaTwoTone } from "@mui/icons-material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -35,11 +35,11 @@ import Select from '@mui/material/Select';
   var [updateURL, setUpdateURL] = useState("");
   const [popup, setpopup] = useState(false);
   const [select, setSelect] = useState(0);
-
-
+  const [categoryData, setCategoryData] = useState([]);
+  const prior = [];
 
   const update = () => {
-    updatefooditembyid(foodid, updatename, updateprice, updatedes, updateURL, RID).then((response) => {
+    updatefooditembyid(foodid, updatename, updateprice, updatedes, updateURL, RID, ProductCategory ).then((response) => {
       console.log(response.data)
 
     })
@@ -62,6 +62,29 @@ import Select from '@mui/material/Select';
   const handleChange = (event) => {
     setProductCategory(event.target.value);
   };
+
+  useEffect(() => {
+
+    const getCategoriesData = async () => {
+
+  await getCategories().then((response) => {
+    setCategoryData(response.data.categoryData)
+   }
+    )
+
+    for(var i in categoryData)  {
+      var catName = categoryData[i].Cat_Name
+      prior.push(catName)
+   }
+  };
+
+  getCategoriesData();
+
+
+
+  }, [])
+
+  
 
   return (
     <>
@@ -96,22 +119,20 @@ import Select from '@mui/material/Select';
                 onChange={(e) => setUpdateURL(e.target.value)} />
               <br />
               <label>Category: </label>
-              {/* <input type="text" placeholder={ProductCategory}
-                value={ProductCategory}
-                onChange={(e) => setProductCategory(e.target.value)} /> */}
                <Box sx={{ minWidth: 120 }}>
-    <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Category</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={ProductCategory}
-        label="Age"
-        onChange={handleChange}
-      >
-        <MenuItem value={10} >Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
+              <FormControl fullWidth>
+             <InputLabel id="demo-simple-select-label">Category</InputLabel>
+              <Select
+               labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={ProductCategory}
+              label="Age"
+              onChange={handleChange}
+              >
+   
+        {categoryData.map((item) => (
+        <MenuItem value={item._id}>{item.Cat_Name}</MenuItem>
+        ))}
       </Select>
     </FormControl>
   </Box>

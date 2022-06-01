@@ -24,6 +24,7 @@ import axios from 'axios'
                 }
             }
 			var url = "http://localhost:3000/auth/register";
+            
 			 await axios.post(url, data, config).then((response) => {
                  var data = response.data
                 console.log(response.status);

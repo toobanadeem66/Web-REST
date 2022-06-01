@@ -19,6 +19,8 @@ const CategorySchema = new Schema({
     },
     Cat_ID:{
         type: Number,
+        required: true,
+        unique: true
     }
 
 })

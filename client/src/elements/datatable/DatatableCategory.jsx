@@ -4,14 +4,22 @@ import { getUsersById } from "../../API calls/Users";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import React from "react";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 //import ReactDOM from "react-dom";
+
 import { getCategories, deleteCategory,updateCategoriesById} from '../../API calls/Categories';
 
 const EditButton = row => {
   const [popup, setpopup] = useState(false);
   var [updatename, setUpdateName] = useState("");
-  var [updateparent, setUpdateparent] = useState("");
+  var [updateparent, setUpdateparent] = useState(null);
   var[catid,setcatid]=useState("");
+  var [categories, setCategory] = useState([]);
+  var prior = [];
 
   const update = () => {
     updateCategoriesById(catid,updatename,updateparent).then((response)=>{
@@ -24,9 +32,15 @@ const EditButton = row => {
     setUpdateName(row.row.Cat_Name)
     setUpdateparent(row.row.Parent_Name)
     setcatid(row.row._id)
-    console.log(catid)
+  
+
 
   };
+
+
+ 
+
+     
 
   return (
     <>
@@ -46,9 +60,11 @@ const EditButton = row => {
                 onChange={(e) => setUpdateName(e.target.value)} />
               <br />
               <label>Sub Category of: </label>
-              <input type="text" placeholder={updateparent}
-                value={updateparent}
+              <input type="text" placeholder={updatename}
+                value={updatename}
                 onChange={(e) => setUpdateparent(e.target.value)} />
+
+      
               <br />
               <input type="submit" value="Update" />
             </form>
@@ -201,7 +217,7 @@ useEffect(() => {
                  
         />
       </div>
-      <div clasName='searchdi'>
+      <div className='searchdi'>
         <input type="text" placeholder="Search..."
           value={search}
           onChange={(event) => {

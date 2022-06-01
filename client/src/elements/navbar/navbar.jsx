@@ -1,52 +1,72 @@
 import "./navbar.scss"
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
+import { useState,useEffect } from "react";
+import {updateProfile,getProfile} from "../../API calls/Restaurants";
 
-const navbar = () => {
+const Navbar = () => {
+  const id =localStorage.getItem("RID") 
+  const username = JSON.parse(localStorage.getItem("User_Name")  )
+
+  const[restaurant,setRestuarant] =useState([]);
+  const[logo,setlogo] =useState("");
+  
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    const view2 = async () => {
+     getProfile().then((response)=>{
+       setRestuarant(response.data.products)
+     
+     })
+
+   
+    
+    }
+    view2()
+  }, [])
+
+  useEffect(() => {
+
+      setUser(username)
+  },[])
+
+  useEffect(() => {
+    const view = async () => {     
+       console.log(restaurant)
+       for (var item in restaurant){
+         if(restaurant[item].R_ID == id){
+        setlogo(restaurant[item].R_logo)
+        
+         }
+        }    
+    }
+    view()
+  }, [restaurant])
+
   return (
     <div className="navbarAdmin">
       <div className="wrapper">
        
         <div className="items">
-          <div className="item">
-            <LanguageOutlinedIcon className="icon" />
-            English
+      
+        <div className="item">
+            Welcome {user}   
           </div>
-          <div className="item">
-            <DarkModeOutlinedIcon
-              className="icon"
-            />
-          </div>
-          <div className="item">
-            <FullscreenExitOutlinedIcon className="icon" />
-          </div>
-          <div className="item">
-            <NotificationsNoneOutlinedIcon className="icon" />
-            <div className="counter">1</div>
-          </div>
-          <div className="item">
-            <ChatBubbleOutlineOutlinedIcon className="icon" />
-            <div className="counter">2</div>
-          </div>
-          <div className="item">
-            <ListOutlinedIcon className="icon" />
-          </div>
+
+
           <div className="item">
             <img
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+              src={logo}
               alt=""
               className="avatar"
             />
+
+            
           </div>
+
+
         </div>
       </div>
     </div>
   )
 }
 
-export default navbar
+export default Navbar

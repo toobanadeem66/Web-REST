@@ -1,4 +1,10 @@
 import { DataGrid } from '@mui/x-data-grid';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { display } from "@mui/system";
@@ -7,13 +13,13 @@ import { getUsersById } from "../../API calls/Users";
 import { SettingsInputAntennaTwoTone } from "@mui/icons-material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import React from "react";
+
 
 
 const EditButton = row => {
   const [popup, setpopup] = useState(false);
   const [status, setStatus] = useState("");
-  const [paymentstatus, setpaymentstatus] = useState("");
+  const [paymentstatus, setpaymentstatus] = useState(false);
   const[orderId,setorderid] =useState("");
 
   const update = () => {
@@ -31,6 +37,16 @@ const EditButton = row => {
     
   };
 
+  const handleChangeOrderStatus = (event) => {
+    setStatus(event.target.value);
+  };
+
+  const handleChangePaymentStatus = (event) => {
+    setpaymentstatus(event.target.value);
+  };
+
+
+
   return (
     <>
       <button className="DT_Btn"
@@ -44,14 +60,40 @@ const EditButton = row => {
           <div className="modal-content">
             <form onSubmit={update}>
             <label>Order Status:</label>
-              <input type="text" placeholder={status}
-                value={status}
-                onChange={(e) => setStatus(e.target.value)} />
+            <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Order Status</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={status}
+          label="Age"
+          onChange={handleChangeOrderStatus}
+        >
+          <MenuItem value={"delivered"}>delivered</MenuItem>
+          <MenuItem value={"cancelled"}>cancelled</MenuItem>
+          <MenuItem value={"prepared"}>prepared</MenuItem>
+          <MenuItem value={"out for delivery"}>out for delivery</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
               <br />
               <label>Payment Status: </label>
-              <input type="text" placeholder={paymentstatus}
-                value={paymentstatus}
-                onChange={(e) => setpaymentstatus(e.target.value)} />
+              <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Payment Status</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={paymentstatus}
+          label="Age"
+          onChange={handleChangePaymentStatus}
+        >
+          <MenuItem value={true}>Paid</MenuItem>
+          <MenuItem value={false}>Pending</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
               <br />
               <input type="submit" value="Update" />
             </form>
