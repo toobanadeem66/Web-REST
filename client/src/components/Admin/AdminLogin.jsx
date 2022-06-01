@@ -32,6 +32,7 @@ const AdminLogin = () => {
 					localStorage.setItem("token", JSON.stringify(data.accessToken));
 					localStorage.setItem('refreshToken', JSON.stringify(data.refreshToken))
 					localStorage.setItem("RID", JSON.stringify(data.RID));
+					localStorage.setItem("User_Name", JSON.stringify(data.username));
 					alert('Login successful')
 					window.location = "/ManageProduct";
 				}

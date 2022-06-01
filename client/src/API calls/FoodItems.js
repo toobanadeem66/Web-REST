@@ -46,12 +46,12 @@ export async function getfooditembyid(id) {
   return response
 }
 
-export async function updatefooditembyid(id,updatename,updateprice,updatedes,updateURL,RID) {
+export async function updatefooditembyid(id,updatename,updateprice,updatedes,updateURL,RID, updateCAT_ID) {
 
   var response = await Api.put(`http://localhost:3000/Food_item/${id}`,
     {
       Item_Name:updatename,
-      Cat_id:"623ee33578dfc43825843094",
+      Cat_id: updateCAT_ID,
       Item_price:updateprice,
       Item_picture: updateURL,
       Item_desc: updatedes,
