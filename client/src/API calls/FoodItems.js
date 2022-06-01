@@ -19,15 +19,6 @@ export async function AddFoodItems(updatename,updatecategory,updateprice,updateU
   return response
 }
 
-// export async function AddFoodItems() {
-//   var response = Api.post("http://localhost:3000/Food_item")
-//     .catch(err => {
-//       console.log("err");
-//     });
-
-//   return response
-// }
-
 export async function getFoodItems() {
   var response = Api.get("http://localhost:3000/Food_item")
     .catch(err => {

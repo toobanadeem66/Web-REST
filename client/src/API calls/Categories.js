@@ -25,9 +25,14 @@ export  async function getCategories() {
       return response
   }
 
-  export async function updateCategoriesById(id) {
-
-   var response = await Api.put(`http://localhost:3000/Category/${id}`)
+  export async function updateCategoriesById(id,updatename,updateparent) {
+console.log(updatename)
+console.log(id)
+   var response = await Api.put(`http://localhost:3000/Category/${id}`,
+   {
+      Cat_Name:updatename,
+      Parent_id:updateparent,
+   })
       .catch(err => {
          console.log(err)
       })
@@ -35,23 +40,24 @@ export  async function getCategories() {
       return response;
 }
 
-export async function addCategory(catname,pid,rid,catid) {
 
-   var response = await Api.post(`http://localhost:3000/Category`,
-   {
+
+// export async function addCategory() {
+//       var response = await Api.post(`http://localhost:3000/Category`,
+//    {
      
-     Cat_Name:catname,
-     Parent_id:pid,
-     R_ID:rid,
-     Cat_ID:catid
+//      Cat_Name:catname,
+//      Parent_id:pid,
+//      R_ID:rid,
+//      Cat_ID:catid
 
-   })
-   .catch(err => {
-     console.log("err");
-   });
+//    })
+//    .catch(err => {
+//      console.log("err");
+//    });
 
-      return response;
-}
+//       return response;
+// }
 
 export async function deleteCategory(categoryID) {
    var response = await Api.delete(`http://localhost:3000/Category/${categoryID}`)

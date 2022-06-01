@@ -60,9 +60,9 @@ import {updateProfile,getProfile} from "../../API calls/Restaurants";
   }, [restaurant])
 
   return (
-    <div className="restaurantprofile">
+    <div className="list">
       <Sidebar />
-      <div className="restaurantprofile__container">
+      <div className="listContainer">
         <Navbar />
         <div className="Restaurant_Container">
           <div className="Restaurant_Container_Header">

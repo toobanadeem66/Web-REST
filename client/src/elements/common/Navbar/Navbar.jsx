@@ -1,25 +1,43 @@
 import "./Navbar.scss"
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import {Link} from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useStateValue } from "../../../redux/StateProvider";
-
-
-
-  
-
+import { useState,useEffect } from "react";
+import {updateProfile,getProfile} from "../../../API calls/Restaurants";
 
 function Navbar() {
+
+  const id =localStorage.getItem("RID")   
+  const[restaurant,setRestuarant] =useState([]);
+  const[logo,setlogo] =useState("");
+  
 
  var cart = JSON.parse(localStorage.getItem("cart"));
   var cartCount = cart ? cart.length : 0
   console.log(typeof cart)
+
+
+  useEffect(() => {
+    const view2 = async () => {
+     getProfile().then((response)=>{
+       setRestuarant(response.data.products)
+     
+     })
+    
+    }
+    view2()
+  }, [])
+
+  useEffect(() => {
+    const view = async () => {     
+       console.log(restaurant)
+       for (var item in restaurant){
+         if(restaurant[item].R_ID == id){
+        setlogo(restaurant[item].R_logo)
+         }
+        }    
+    }
+    view()
+  }, [restaurant])
 
 
   return (
@@ -28,7 +46,7 @@ function Navbar() {
 
         <div className="logo">
           <Link to="/CustomerHome">
-          <img className = "logo_img" src="https://s.tmimgcdn.com/scr/800x500/212900/spoon-and-fork-restaurant-logo_212966-original.png" alt="logo" />
+          <img className = "logo_img" src={logo}/>
           </Link>
         </div>
 
