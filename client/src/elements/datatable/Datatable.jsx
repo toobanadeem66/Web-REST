@@ -9,9 +9,16 @@ import { SettingsInputAntennaTwoTone } from "@mui/icons-material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import React from "react";
+import Dropdown from "./Dropdown";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
-const EditButton = row => {
+
+ const EditButton = (row) => {
   const categoryid = (ID) => {
      getfooditembyid(ID).then((response) => {
       setProductCategory(response.data.fooditem.Cat_id)
@@ -27,6 +34,9 @@ const EditButton = row => {
   var [RID, setR_ID] = useState("");
   var [updateURL, setUpdateURL] = useState("");
   const [popup, setpopup] = useState(false);
+  const [select, setSelect] = useState(0);
+
+
 
   const update = () => {
     updatefooditembyid(foodid, updatename, updateprice, updatedes, updateURL, RID).then((response) => {
@@ -47,6 +57,10 @@ const EditButton = row => {
     setUpdateURL(row.row.Item_picture)
     setR_ID(row.row.R_ID)
 
+  };
+
+  const handleChange = (event) => {
+    setProductCategory(event.target.value);
   };
 
   return (
@@ -82,9 +96,29 @@ const EditButton = row => {
                 onChange={(e) => setUpdateURL(e.target.value)} />
               <br />
               <label>Category: </label>
-              <input type="text" placeholder={ProductCategory}
+              {/* <input type="text" placeholder={ProductCategory}
                 value={ProductCategory}
-                onChange={(e) => setProductCategory(e.target.value)} />
+                onChange={(e) => setProductCategory(e.target.value)} /> */}
+               <Box sx={{ minWidth: 120 }}>
+    <FormControl fullWidth>
+      <InputLabel id="demo-simple-select-label">Category</InputLabel>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={ProductCategory}
+        label="Age"
+        onChange={handleChange}
+      >
+        <MenuItem value={10} >Ten</MenuItem>
+        <MenuItem value={20}>Twenty</MenuItem>
+        <MenuItem value={30}>Thirty</MenuItem>
+      </Select>
+    </FormControl>
+  </Box>
+
+
+
+
               <br />
               <input type="submit" value="Update" />
             </form>
@@ -130,9 +164,10 @@ const deleteItem = async (id) => {
 }
 
 const Buttons = thisRow => {
+
   return (
     <strong>
-      <EditButton row={thisRow.row} />
+      <EditButton row={thisRow.row}  />
       <DeleteButton row={thisRow.row} />
     </strong>
   )
