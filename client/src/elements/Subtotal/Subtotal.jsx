@@ -5,53 +5,34 @@ import { useStateValue } from "../../redux/StateProvider";
 import { getBasketTotal } from "../../redux/Reducer";
 import { useNavigate } from "react-router-dom";
 import { getfooditembyid } from "../../API calls/FoodItems"
-import { useEffect } from "react";
-
-
-
-
+import { useEffect, useState, useRef } from "react";
 
 function Subtotal() {
-  const history = useNavigate();
-
-  var cart = JSON.parse(localStorage.getItem("cart"));
   var subTotal = 0;
-  var [total, setTotal] = React.useState([]);
   var prior=[];
+  const history = useNavigate();
+  var cart = JSON.parse(localStorage.getItem("cart"));
+  const [total, setTotal] = useState(0);
 
-  useEffect(() => {
-    const totalPrice = () => {
-      for (var i = 0; i < cart.length; i++) {
-        // iterate ids from cart
-        var id = cart[i].id;
-        // get the product from the id by api call
-        getfooditembyid(id).then(data => {          
-          prior.push(data.data.fooditem.Item_price)
-        })        
-
-      }
-      console.log(prior)
-      setTotal(prior)   
-      console.log(total)   
-      
+  useEffect(async () => {
+    // fetch cart items
+    for (var i = 0; i < cart.length; i++) {
+      // iterate ids from cart
+      var id = cart[i].id;
+      // get the product from the id by api call
+      await getfooditembyid(id).then(data => {        
+        prior.push(data.data.fooditem.Item_price)
+      })        
     }
-    totalPrice();
+    console.log("items: ", prior)
+    var sum = 0;
+    for (var i = 0; i < prior.length; i++) {
+      sum = sum + prior[i];
+    }
+    console.log(sum)
+    setTotal(sum);
+    console.log(total)
   }, [])
-
-  useEffect(() => {
-    const totalPrice1 = () => {
-      for(var i in total){
-        console.log(total[i].price)  
-        subTotal=subTotal+(total[i].price)
-        console.log(subTotal)
-      }
-      console.log(subTotal)
-      //setTotal(prior)
-    }
-
-    totalPrice1()
-  },[total])
-
   return (
     <div className="subtotal">
       <CurrencyFormat
@@ -59,7 +40,7 @@ function Subtotal() {
           <>
             <p>
               {/* Part of the homework */}
-              Subtotal ({cart.length} items): <strong>{subTotal}</strong>
+              Subtotal ({cart.length} items): <strong>{total}</strong>
             </p>
             <small className="subtotal__gift">
               <input type="checkbox" /> This order contains a gift
