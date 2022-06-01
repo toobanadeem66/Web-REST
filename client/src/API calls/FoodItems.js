@@ -19,14 +19,14 @@ export async function AddFoodItems(updatename,updatecategory,updateprice,updateU
   return response
 }
 
-export async function AddFoodItems() {
-  var response = Api.post("http://localhost:3000/Food_item")
-    .catch(err => {
-      console.log("err");
-    });
+// export async function AddFoodItems() {
+//   var response = Api.post("http://localhost:3000/Food_item")
+//     .catch(err => {
+//       console.log("err");
+//     });
 
-  return response
-}
+//   return response
+// }
 
 export async function getFoodItems() {
   var response = Api.get("http://localhost:3000/Food_item")
@@ -36,18 +36,10 @@ export async function getFoodItems() {
 
   return response
 }
-<<<<<<< HEAD
-export async function deletefooditem(id) {
-
-  var response = await Api.delete(`http://localhost:3000/Food_item/${id}`)
-    .catch(err => {
-      console.log("err");
-=======
 export async function deleteFoodItem(id) {
   var response = Api.delete(`http://localhost:3000/Food_item/${id}`)
     .catch(err => {
       console.log(err);
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
     });
 
   return response
@@ -63,11 +55,6 @@ export async function getfooditembyid(id) {
   return response
 }
 
-<<<<<<< HEAD
-export async function updatefooditembyid(id) {
-
-  var response = await Api.put(`http://localhost:3000/Food_item/${id}`)
-=======
 export async function updatefooditembyid(id,updatename,updateprice,updatedes,updateURL,RID) {
 
   var response = await Api.put(`http://localhost:3000/Food_item/${id}`,
@@ -80,15 +67,9 @@ export async function updatefooditembyid(id,updatename,updateprice,updatedes,upd
       R_ID:RID
 
     })
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
     .catch(err => {
       console.log("err");
     });
 
   return response
-<<<<<<< HEAD
 }
-
-=======
-}
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0

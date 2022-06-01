@@ -64,8 +64,6 @@ import {updateProfile,getProfile} from "../../API calls/Restaurants";
       <Sidebar />
       <div className="restaurantprofile__container">
         <Navbar />
-<<<<<<< HEAD
-=======
         <div className="Restaurant_Container">
           <div className="Restaurant_Container_Header">
             <h2 className="editprofile_h2"> EDIT INFORMATION </h2>
@@ -139,7 +137,6 @@ import {updateProfile,getProfile} from "../../API calls/Restaurants";
               </div>
             </div>
           </div>
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
         </div>
     </div>
   )
