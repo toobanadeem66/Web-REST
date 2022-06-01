@@ -1,34 +1,85 @@
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from "react";
-import {getUsersById} from "../../API calls/Users";
+import { getUsersById } from "../../API calls/Users";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import React from "react";
-import { getCategories } from '../../API calls/Categories';
+//import ReactDOM from "react-dom";
+import { getCategories, deleteCategory,addCategory } from '../../API calls/Categories';
 
+const EditButton = row => {
+  const [popup, setpopup] = useState(false);
 
+  const update = () => {
+    
+  };
 
+  const togglePopup = () => {
+    setpopup(!popup);
+    
 
-const Buttons = (params) => {
+  };
+
   return (
-      <strong>
-          <button className="DT_Btn"
-              onClick={() => {
-                 
-              }}
-          >
-              < EditIcon className="DTicon"/>
-          </button>
+    <>
+      <button className="DT_Btn"
+        onClick={togglePopup}>
+        < EditIcon className="DTicon" />
+      </button>
 
-          <button className="DT_Btn"
-              // onClick={() => {
-                 
-              // }}
-          >
-              <DeleteOutlineOutlinedIcon className="DTicon"/>
-          </button>
+      {popup && (
+        <div className="modal">
+          <div onClick={togglePopup} className="overlay"></div>
+          <div className="modal-content">
+           
+            <button className="close-modal" onClick={togglePopup}>
+              CLOSE
+            </button>
+          </div>
+        </div>
+      )}
 
-      </strong>
+    </>
+
+  );
+
+}
+
+const DeleteButton = row => {
+  return (
+    <button className="DT_Btn"
+        onClick={() => {
+          // Delete
+          console.log("Delete : " + row.row.Cat_Name)
+          console.log("Delete : " + row.row._id)
+
+          // show confirmation dialog
+          // if confirmed, delete
+          window.confirm('Are you sure you wish to delete this item?') 
+            ? deleteItem(row.row._id.toString().trim())
+            : console.log("cancel")
+          
+        }}
+      >
+        <DeleteOutlineOutlinedIcon className="DTicon" />
+      </button>
+  );
+}
+const deleteItem = async (id) => {
+  console.log("confirm delete")
+  console.log("Delete : " + id)
+  const response = await deleteCategory(id);
+  // console.log(response)
+  window.alert(response.data.message)
+  window.location.reload()
+}
+
+const Buttons = thisRow => {
+  return (
+    <strong>
+      <EditButton row={thisRow.row} />
+      <DeleteButton row={thisRow.row} />
+    </strong>
   )
 }
 
@@ -41,23 +92,32 @@ const columnCategory = [
   
 ]
 
-
-
 var token = JSON.parse(localStorage.getItem("token"));
-
-
-
 
 const DatatableCategory = () => {
 
   var prior = [];
+  var prior1 = [];
   var [data, setData] = useState([]);
   var [categories, setCategory] = useState([]);
- 
+  var [original, setoriginal] = useState([]);
+  var [search, setSearchTerm] = useState([]);
 
 
-
-
+  const resetSearch = async (e) => {
+    setCategory(original)
+    setSearchTerm("")
+  }
+  
+  const handleSearch = async (e) => {
+    for (var item in categories) {
+      if (categories[item].Cat_Name.toLowerCase().includes(search.toLowerCase()) && search != "") {
+          prior1.push(categories[item])  
+      }
+    }
+    setCategory(prior1);
+    
+  }
 
 useEffect(() => {
   
@@ -66,11 +126,8 @@ if(token){
   const view = async() => {
    await getCategories().then((response) => {
 
-      var parentid = "";
       var categories = response.data.categoryData
-
       setData(categories);
-
   })
   }
 
@@ -80,8 +137,6 @@ view()
 
 
 useEffect(() => {
-
-  
     const view = async() => {
       var parentid = "";
       for(var item in data){
@@ -104,11 +159,8 @@ useEffect(() => {
         prior.push(obj);
       }
 
-      console.log(prior)
       setCategory(prior);
-
-
-
+      setoriginal(prior);
     }
     
   
@@ -116,30 +168,31 @@ useEffect(() => {
 
   }, [data])
 
-
-
-
-
-
- 
-
-
-
   return (
     <div className="datatable">
       
-      <div style={{ height: 400, width: '100%' }}>
+      <div style={{ height: 500, width: '100%' }}>
         <DataGrid
           rows={categories} 
           columns={ columnCategory}
           getRowId={(row) => row._id}
           pageSize={10}
           rowsPerPageOptions={[10]}
-          checkboxSelection
-          
+                 
         />
       </div>
-      {/* <button className="datatablebtn" onClick={view}> View Products </button> */}
+      <div clasName='searchdi'>
+        <input type="text" placeholder="Search..."
+          value={search}
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}
+        />
+        <button onClick={handleSearch}>Search</button>
+        <button onClick={resetSearch}>Reset Data</button>
+      </div>
+
+      
     </div>
   )
 }

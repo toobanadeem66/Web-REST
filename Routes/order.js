@@ -174,4 +174,27 @@ Order.findOneAndUpdate({_id:req.params.orderId},{
 })
 });
 
+router.put('/:id', verifyAccessToken,checkRole, (req, res, next) => {
+  console.log(req.body)
+  Order.findOneAndUpdate({ _id: req.params.id }, {
+      $set: {
+         
+          Order_Status:req.body.Order_Status,
+          isPaid: req.body.isPaid
+      }
+  })
+      .then(result => {
+          res.status(200).json({
+              updated_Order: result
+          })
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json({
+              error: err
+          })
+
+      })
+})
+
 module.exports= router;
