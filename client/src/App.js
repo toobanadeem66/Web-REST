@@ -11,6 +11,11 @@ import ManageProduct from "./components/Admin/ManageProduct";
 import ManageCategory from "./components/Admin/ManageCategory";
 import RestaurantProfile from "./components/Admin/RestaurantProfile";
 import ManageCustomers from "./components/Admin/ManageCustomers"
+import CustomerHome from "./components/Customer/CustomerHome.jsx";
+import MenuPage from "./components/Customer/MenuPage.jsx";
+import CustomerLogin from "./components/Customer/CustomerLogin";
+import CustomerRegister from "./components/Customer/CustomerRegister";
+import Cart from "./components/Customer/Cart";
 
 
 function App() {
@@ -55,6 +60,33 @@ function App() {
 				{user && <Route index element={<RestaurantProfile />} />}
 				{!user && <Route index element = {"404 NOT FOUND"} /> }
 			</Route>
+
+			<Route path="/CustomerHome">
+				{ <Route index element={<CustomerHome />} />}
+				{/* {!user && <Route index element = {"404 NOT FOUND"} /> } */}
+			</Route>
+
+			<Route path="/Menu">
+				{ <Route index element={<MenuPage/>} />}
+				{/* {!user && <Route index element = {"404 NOT FOUND"} /> } */}
+			</Route>
+
+			<Route path="/CustomerLogin">
+				{<Route index element={<CustomerLogin/>} />}
+				{/* {!user && <Route index element = {"404 NOT FOUND"} /> } */}
+			</Route>
+
+			<Route path="/CustomerRegister">
+				{ <Route index element={<CustomerRegister/>} />}
+				{/* {!user && <Route index element = {"404 NOT FOUND"} /> } */}
+			</Route>
+
+			<Route path="/cart">
+				{<Route index element={<Cart/>} />}
+				{/* {!user && <Route index element = {"404 NOT FOUND"} /> } */}
+			</Route>
+
+
 
 			<Route path ="*" exact element={"404 NOT FOUND"} /> 
 

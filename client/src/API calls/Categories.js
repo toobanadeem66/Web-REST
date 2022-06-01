@@ -24,3 +24,33 @@ export  async function getCategories() {
 
       return response
   }
+
+  export async function updateCategoriesById(id) {
+
+   var response = await Api.put(`http://localhost:3000/Category/${id}`)
+      .catch(err => {
+         console.log(err)
+      })
+
+      return response;
+}
+
+export async function AddCategory() {
+
+   var response = await Api.post(`http://localhost:3000/Category}`)
+      .catch(err => {
+         console.log(err)
+      })
+
+      return response;
+}
+
+export async function deleteCategoriesById(id) {
+
+   var response = await Api.delete(`http://localhost:3000/Category/${id}`)
+      .catch(err => {
+         console.log(err)
+      })
+
+      return response;
+}

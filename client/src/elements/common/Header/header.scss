@@ -1,0 +1,126 @@
+
+
+.Header_Container{
+   justify-content: center;
+    align-items: center;
+    display: block;
+    width: 100%;
+    height: 90vh;
+    overflow: hidden;
+    // height: 100%;
+
+
+
+
+.header_img {
+  max-height: 100%;
+  margin: auto;
+  display: block;
+  object-fit: fill;
+  color: black;
+  animation: fadeIn linear 7s;
+  -webkit-animation: fadeIn linear 7s;
+  -moz-animation: fadeIn linear 7s;
+  -o-animation: fadeIn linear 7s;
+  -ms-animation: fadeIn linear 7s;
+
+
+    // mask-image: linear-gradient(to bottom, rgb(111, 111, 111), rgba(39, 39, 39, 0));
+  
+  }
+
+  @keyframes fadeIn {
+    50% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-moz-keyframes fadeIn {
+    50% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-webkit-keyframes fadeIn {
+    50% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-o-keyframes fadeIn {
+    50% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-ms-keyframes fadeIn {
+    50% {opacity:0;}
+    100% {opacity:1;}
+  }
+
+  
+  h1 {
+
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+    font-size: 60px;
+    color: #fffdfb;;
+    margin: auto;
+    width: 100%;
+
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+
+    color: rgb(172, 168, 168);
+    animation: fadeIn linear 5s;
+    -webkit-animation: fadeIn linear 5s;
+    -moz-animation: fadeIn linear 5s;
+    -o-animation: fadeIn linear 5s;
+    -ms-animation: fadeIn linear 5s;
+
+  }
+
+  @keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @media(max-width: 768px) {
+    h1 {
+        text-align: center;
+        padding: 10px;
+        font-size: 20px;
+
+    }
+
+    .header_img {
+      width: 100%;
+      margin-bottom: -150px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+      height: 250px;
+      object-fit: cover;
+    }
+
+
+  }
+
+
+}
