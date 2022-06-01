@@ -85,9 +85,11 @@ router.delete('/:id',verifyAccessToken,checkRole,(req,res,next)=>{
 
 // update Category data
 router.put('/:id',verifyAccessToken,checkRole,(req,res,next)=>{
+    console.log(req.body)
     Category.findOneAndUpdate({_id:req.params.id},{
         $set:{
-            Cat_Name:req.body.Cat_Name
+            Cat_Name:req.body.Cat_Name,
+            Parent_id:req.body.Parent_id
         }
     })
     .then(result=>{

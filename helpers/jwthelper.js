@@ -8,11 +8,7 @@ module.exports = {
             const payload = {}
             const secret = process.env.ACCESS_TOKEN_SECRET
             const options = {
-<<<<<<< HEAD
                 expiresIn :'1hr',
-=======
-                expiresIn :'20min',
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
                 issuer: 'pickurpage.com',
                 audience: userId,
             }

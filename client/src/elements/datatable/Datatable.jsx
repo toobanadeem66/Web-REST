@@ -3,19 +3,12 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { display } from "@mui/system";
-<<<<<<< HEAD
-import { getFoodItems, getfooditembyid } from "../../API calls/FoodItems";
-=======
 import { getFoodItems, deleteFoodItem, updatefooditembyid, getfooditembyid } from "../../API calls/FoodItems";
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
 import { getCategoriesById } from "../../API calls/Categories";
 import { SettingsInputAntennaTwoTone } from "@mui/icons-material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import React from "react";
-<<<<<<< HEAD
-//import SearchBar from "../SearchBar"
-=======
 
 
 const EditButton = row => {
@@ -55,28 +48,8 @@ const EditButton = row => {
     setR_ID(row.row.R_ID)
 
   };
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
 
   return (
-<<<<<<< HEAD
-    <strong>
-      <button className="DT_Btn"
-        onClick={() => {
-          console.log("delete");
-        }}
-      >
-        < EditIcon className="DTicon" />
-      </button>
-
-      <button className="DT_Btn"
-        onClick={() => {
-          console.log("delete");
-        }}
-      >
-        <DeleteOutlineOutlinedIcon className="DTicon" />
-      </button>
-
-=======
     <>
       <button className="DT_Btn"
         onClick={togglePopup}>
@@ -161,7 +134,6 @@ const Buttons = thisRow => {
     <strong>
       <EditButton row={thisRow.row} />
       <DeleteButton row={thisRow.row} />
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
     </strong>
   )
 }
@@ -177,68 +149,12 @@ const columnsProducts = [
 ];
 
 const Datatable = () => {
-<<<<<<< HEAD
-
-=======
   
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
   var [search, setSearchTerm] = useState([]);
   var [foodItems, setFoodItems] = useState([]);
   var [original, setoriginal] = useState([]);
   var [data, setData] = useState([]);
   var prior = [];
-<<<<<<< HEAD
-  //var [data1, setData1] = useState([]);
-  var prior1 = [];
-  
-
-   const resetSearch = async (e) => {
-    for (var item in foodItems) {
-      var name = "";
-      var id = foodItems[item].Cat_id
-      await getCategoriesById(id).then((response) => {
-        name = response.data.categoryData.Cat_Name
-
-      })
-      //console.log(name)
-      var json = {
-        _id: foodItems[item]._id,
-        Item_Name: foodItems[item].Item_Name,
-        Item_price: foodItems[item].Item_price,
-        Item_picture: foodItems[item].Item_picture,
-        Item_desc: foodItems[item].Item_desc,
-        Cat_Name: name
-      }
-      //console.log(json)
-      prior.push(json)
-
-    }
-    setData(prior)
-  }
-
-  const handleSearch = async (e) => {
-    for(var item in foodItems){
-      if(foodItems[item].Item_Name.toLowerCase().includes(search.toLowerCase()) && search!=""){
-        var name = "";
-        var id = foodItems[item].Cat_id
-        await getCategoriesById(id).then((response) => {
-          name = response.data.categoryData.Cat_Name
-
-        })
-        var json = {
-          _id: foodItems[item]._id,
-          Item_Name: foodItems[item].Item_Name,
-          Item_price: foodItems[item].Item_price,
-          Item_picture: foodItems[item].Item_picture,
-          Item_desc: foodItems[item].Item_desc,
-          Cat_Name: name
-        }
-        prior1.push(json)
-      }
-    }
-    setData(prior1)
-    //console.log(search)
-=======
   var prior1 = [];
 
   const resetSearch = async (e) => {
@@ -255,7 +171,6 @@ const Datatable = () => {
     }
     setData(prior1)
 
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
   }
 
   useEffect(() => {
@@ -266,33 +181,6 @@ const Datatable = () => {
     }
     view2()
   }, [])
-<<<<<<< HEAD
-
-  useEffect(() => {
-
-    const getProductData = async () => {
-      //var i = 0;
-      for (var item in foodItems) {
-        var name = "";
-        var id = foodItems[item].Cat_id
-        await getCategoriesById(id).then((response) => {
-          name = response.data.categoryData.Cat_Name
-
-        })
-        //console.log(name)
-        var json = {
-          _id: foodItems[item]._id,
-          Item_Name: foodItems[item].Item_Name,
-          Item_price: foodItems[item].Item_price,
-          Item_picture: foodItems[item].Item_picture,
-          Item_desc: foodItems[item].Item_desc,
-          Cat_Name: name
-        }
-        //console.log(json)
-        prior.push(json)
-
-      }
-=======
 
   useEffect(() => {
     var rid=localStorage.getItem("RID")
@@ -320,7 +208,6 @@ const Datatable = () => {
       }
       }
       setoriginal(prior)
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
       setData(prior)
     }
 
@@ -331,11 +218,7 @@ const Datatable = () => {
   return (
     <div className="datatable">
 
-<<<<<<< HEAD
-      <div style={{ height: 400, width: '100%' }}>
-=======
       <div style={{ height: 500, width: '100%' }}>
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
         <DataGrid
           rows={data}
           columns={columnsProducts
@@ -343,25 +226,6 @@ const Datatable = () => {
           getRowId={(row) => row._id}
           pageSize={5}
           rowsPerPageOptions={[5]}
-<<<<<<< HEAD
-          checkboxSelection
-        />
-      </div>
-      {/* <SearchBar placeholder="Search..." data={foodItems}/> */}
-      <div clasName='searchdi'>
-
-        <input type="text" placeholder="Search..."
-          value={search}
-          onChange={(event) => {
-            setSearchTerm(event.target.value);            
-          }}
-        />
-        {/* if(search == ""){
-              resetSearch()
-            } */}
-        <button onClick={handleSearch}>Click Me!</button>
-         <button onClick={resetSearch}>Reset Data</button> 
-=======
 
         />
       </div>
@@ -375,7 +239,6 @@ const Datatable = () => {
         />
         <button onClick={handleSearch}>Search</button>
         <button onClick={resetSearch}>Reset Data</button>
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0
       </div>
     </div>
 

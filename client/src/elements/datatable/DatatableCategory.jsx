@@ -5,18 +5,26 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import React from "react";
 //import ReactDOM from "react-dom";
-import { getCategories, deleteCategory,addCategory } from '../../API calls/Categories';
+import { getCategories, deleteCategory,updateCategoriesById} from '../../API calls/Categories';
 
 const EditButton = row => {
   const [popup, setpopup] = useState(false);
+  var [updatename, setUpdateName] = useState("");
+  var [updateparent, setUpdateparent] = useState("");
+  var[catid,setcatid]=useState("");
 
   const update = () => {
-    
+    updateCategoriesById(catid,updatename,updateparent).then((response)=>{
+      console.log(response.data)
+    })
   };
 
   const togglePopup = () => {
     setpopup(!popup);
-    
+    setUpdateName(row.row.Cat_Name)
+    setUpdateparent(row.row.Parent_Name)
+    setcatid(row.row._id)
+    console.log(catid)
 
   };
 
@@ -31,7 +39,19 @@ const EditButton = row => {
         <div className="modal">
           <div onClick={togglePopup} className="overlay"></div>
           <div className="modal-content">
-           
+          <form onSubmit={update}>
+              <label>Category Name:</label>
+              <input type="text" placeholder={updatename}
+                value={updatename}
+                onChange={(e) => setUpdateName(e.target.value)} />
+              <br />
+              <label>Sub Category of: </label>
+              <input type="text" placeholder={updateparent}
+                value={updateparent}
+                onChange={(e) => setUpdateparent(e.target.value)} />
+              <br />
+              <input type="submit" value="Update" />
+            </form>
             <button className="close-modal" onClick={togglePopup}>
               CLOSE
             </button>

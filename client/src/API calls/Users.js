@@ -13,7 +13,6 @@ export async function getUsers() {
   return response
 }
 
-<<<<<<< HEAD
   export  async function getUsersById(id) {
     var response = await Api.get(`http://localhost:3000/auth/${id}`)
         .catch(err => {
@@ -27,16 +26,8 @@ export async function getUsers() {
 
 
   }
-=======
-export async function getUsersById(id) {
-  var response = await Api.get(`http://localhost:3000/auth/${id}`)
-    .catch(err => {
-      console.log(err);
-    });
 
-  return response
-}
-// todo soft delete
+  // todo soft delete
 export async function deleteUser(id) {
   var response = await Api.delete(`http://localhost:3000/auth/${id}`)
     .catch(err => {
@@ -45,4 +36,3 @@ export async function deleteUser(id) {
 
   return response
 }
->>>>>>> da9f1624f84c87829e702c375998ba4e06ce08b0

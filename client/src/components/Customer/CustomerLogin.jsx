@@ -34,6 +34,7 @@ import Api from "../../API calls/Api";
 
                 localStorage.setItem("token", JSON.stringify(data.accessToken));
                 localStorage.setItem('refreshToken', JSON.stringify(data.refreshToken))
+                localStorage.setItem("RID", JSON.stringify(data.RID));
 				alert('Login successful')
                 window.location = "/CustomerHome";
 				}
