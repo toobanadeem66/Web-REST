@@ -5,7 +5,7 @@ import Header from '../../elements/common/Header/Header';
 const Home = () => {
 
   React.useEffect(() => {
-    localStorage.setItem("RID",2)
+    localStorage.setItem("CRID",2)
   })
 
   return (

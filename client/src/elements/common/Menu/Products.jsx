@@ -27,9 +27,10 @@ const Products = (props) => {
   
 
     useEffect( () => {
-
+      var rid=localStorage.getItem("CRID")
       const save = async()  => {
       for (var item in foodItems) {
+        if(foodItems[item].R_ID == rid){
         var name = "";
         var id = foodItems[item].Cat_id
         await getCategoriesById(id).then((response) => {
@@ -49,7 +50,7 @@ const Products = (props) => {
         }
         //console.log(json)
         prior.push(json)
-
+      }
       } }
       console.log(prior)
       setData(prior)

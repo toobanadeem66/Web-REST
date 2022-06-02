@@ -14,6 +14,7 @@ export async function getUsers() {
 }
 
   export  async function getUsersById(id) {
+    console.log(id)
     var response = await Api.get(`http://localhost:3000/auth/${id}`)
         .catch(err => {
           console.log(err);

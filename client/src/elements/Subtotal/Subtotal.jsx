@@ -6,6 +6,11 @@ import { getBasketTotal } from "../../redux/Reducer";
 import { useNavigate } from "react-router-dom";
 import { getfooditembyid } from "../../API calls/FoodItems"
 import { useEffect, useState, useRef } from "react";
+import { saveOrder,addOrder} from "../../API calls/Orders"
+
+
+
+
 
 function Subtotal() {
   var subTotal = 0;
@@ -13,6 +18,16 @@ function Subtotal() {
   const history = useNavigate();
   var cart = JSON.parse(localStorage.getItem("cart"));
   const [total, setTotal] = useState(0);
+
+
+
+  async function saveOrder(){
+    console.log("in")
+  //  saveOrder(total).then((response)=>{
+  //      console.log(response)
+  //    })
+       
+  }
 
   useEffect(async () => {
     // fetch cart items
@@ -35,10 +50,12 @@ function Subtotal() {
   }, [])
 
   const proceed = () => {
+    addOrder(total).then((response) => {
+      console.log(response.data)
+    })
     // show the order placed popup
-    window.alert("Your order has been placed, Thankyou!");
-    // navigate to checkout
-    history("/Menu");
+  
+    
   }
 
   return (

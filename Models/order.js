@@ -5,7 +5,7 @@ const orderSchema = mongoose.Schema({
      R_ID: { type: Number, ref: 'restaurant', required: true },
      User_ID: { type: String, ref: 'User', required: true },
      Creation_time:{ type: String, required: true },
-     Delivered_time: { type: String, required: true},
+     Delivered_time: { type: String},
      Total_Price: { type: Number, required: true},
      isPaid: { type: Boolean },
      Tax: {type: Number, required: true},

@@ -4,7 +4,7 @@ import {useState,useEffect } from 'react'
 import {updateProfile,getProfile} from "../../../API calls/Restaurants";
 
 const Header = () => {
-  const id =localStorage.getItem("RID")   
+  const id =localStorage.getItem("CRID")   
   const[name,setname]=useState("");
   
   const[restaurant,setRestuarant] =useState([]);

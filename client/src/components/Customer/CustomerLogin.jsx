@@ -32,9 +32,10 @@ import Api from "../../API calls/Api";
 
 				if (data.role==='customer') {
 
-                localStorage.setItem("token", JSON.stringify(data.accessToken));
-                localStorage.setItem('refreshToken', JSON.stringify(data.refreshToken))
-                localStorage.setItem("RID", JSON.stringify(data.RID));
+                localStorage.setItem("Ctoken", JSON.stringify(data.accessToken));
+                localStorage.setItem('CrefreshToken', JSON.stringify(data.refreshToken))
+                localStorage.setItem("CRID", JSON.stringify(data.RID));
+                localStorage.setItem("User_ID", JSON.stringify(data.User_ID));
 				alert('Login successful')
                 window.location = "/CustomerHome";
 				}
@@ -77,7 +78,7 @@ import Api from "../../API calls/Api";
                 <input type="password" name="password" placeholder="Password" onChange={handleChange}  value={data.password}/>
             </div>
             {error && <div className="error_msg">{error}</div>}
-        <input type="submit" className="btn" value="Sign in"/>
+        <input type="submit" className="btn" value="Login"/>
         <p> Forgot your password? Click here</p>
         </form>
         </div>

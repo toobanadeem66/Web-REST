@@ -44,43 +44,42 @@ router.get("/",verifyAccessToken,checkRole, (req, res, next) => {
 
 
 router.post("/",verifyAccessToken, (req, res, next) => {
-  restaurant.find({R_ID : req.body.R_ID})
-    .then(restaurant => {
-      if (!restaurant) {
-        return res.status(404).json({
-          message: "restaurant not found"
-        });
-      }
-  User.find({_id :req.body.User_ID})
-  .then(User =>{
-    if (!User) {
-      return res.status(404).json({
-        message: "user not found"
-      });
-    }
-  Status.find({_id: req.body.Status_ID})
-  .then(Status =>{
-    if (!Status) {
-      return res.status(404).json({
-        message: "order not placed"
-      });
-    }
+  // restaurant.find({R_ID : req.body.R_ID})
+  //   .then(restaurant => {
+  //     if (!restaurant) {
+  //       return res.status(404).json({
+  //         message: "restaurant not found"
+  //       });
+  //     }
+  // User.find({_id :req.body.User_ID})
+  // .then(User =>{
+  //   if (!User) {
+  //     return res.status(404).json({
+  //       message: "user not found"
+  //     });
+  //   }
+  // Status.find({_id: req.body.Status_ID})
+  // .then(Status =>{
+  //   if (!Status) {
+  //     return res.status(404).json({
+  //       message: "order not placed",
+      
+  //     });
+  //   }
       const order = new Order({
         _id: new mongoose.Types.ObjectId,
         R_ID: req.body.R_ID,
-        Status_ID: req.body.Status_ID,
         User_ID: req.body.User_ID,
         Creation_time: req.body.Creation_time,
         Delivered_time: req.body.Delivered_time,
         Total_Price: req.body.Total_Price,
         isPaid: req.body.isPaid,
         Tax:req.body.Tax,
-        isActive: true
-      });
-      return order.save();
-    })
-  })
-})
+        isActive: true,
+        Order_Status: req.body.Order_Status
+      })
+      order.save()
+    
     .then(result => {
       console.log(result);
       res.status(201).json({
@@ -90,15 +89,18 @@ router.post("/",verifyAccessToken, (req, res, next) => {
           type: "POST",
           url: "http://localhost:3000/orders"
         }
-      });
+        })
+      })
+  
+      .catch(err=>{
+          console.log(err);
+          res.status(500).json({
+                  error:err
+              
+          })
+      })
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-});
+
 
 router.get("/getOrders", verifyAccessToken, checkRole, (req,res,next) => {
 
@@ -180,7 +182,8 @@ router.put('/:id', verifyAccessToken,checkRole, (req, res, next) => {
       $set: {
          
           Order_Status:req.body.Order_Status,
-          isPaid: req.body.isPaid
+          isPaid: req.body.isPaid,
+          Delivered_time: req.body.Delivered_time
       }
   })
       .then(result => {

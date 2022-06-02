@@ -21,9 +21,10 @@ const EditButton = row => {
   const [status, setStatus] = useState("");
   const [paymentstatus, setpaymentstatus] = useState(false);
   const[orderId,setorderid] =useState("");
+  const[delivered, setdelivered] =useState("");
 
   const update = () => {
-    updateOrder(orderId,paymentstatus,status).then((response) => {
+    updateOrder(orderId,paymentstatus,status, delivered).then((response) => {
       console.log(response.data)
 
     })
@@ -34,11 +35,26 @@ const EditButton = row => {
     setorderid(row.row._id)    
     setStatus(row.row.Order_Status)
     setpaymentstatus(row.row.isPaid)
+    setdelivered(row.row.isDelivered)
+
     
   };
 
   const handleChangeOrderStatus = (event) => {
     setStatus(event.target.value);
+    // console.log(event.target.value)
+          if(event.target.value === "delivered"){
+      console.log("in")
+      var today = new Date();
+      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      var dateTime = date+' '+time;
+        console.log(dateTime)
+      setdelivered(dateTime)
+    
+    }
+    // console.log(delivered)
   };
 
   const handleChangePaymentStatus = (event) => {
@@ -192,9 +208,11 @@ if(token){
 const view = async() => {
    await getOrders().then((response) => {
        console.log(response.data);
-       setData(response.data.Orders) 
+       setData(response.data.Orders) // data coming
   })
   }
+
+  
 view()
 }
 }, [token])
@@ -203,15 +221,18 @@ view()
 
 
 useEffect(() => {
-  
+   
   const view2 = async() => {
        var name = "";
        var paid = "";
     for(var item in data){
       if(data[item].isActive){
+        console.log(data[item].User_ID)
       await getUsersById(data[item].User_ID).then((response) => {
        name = response.data.user.username;
+ 
       })
+      console.log(name)
           if(data[item].isPaid === true){
             paid = "paid"
           }
@@ -236,6 +257,7 @@ useEffect(() => {
     }
   }
 
+  console.log(prior)
     setOrders(prior)
     console.log(orders)
     setoriginal(prior)

@@ -7,11 +7,15 @@ import { getfooditembyid } from '../../API calls/FoodItems';
 
 import { useEffect, useState, useRef } from "react";
 
+
+
 function Cart() {
   var user = localStorage.getItem("token");
   const Users = () => {
     return "User Name";
   }
+
+
 
   const [products, setProducts] = useState([]);
 
